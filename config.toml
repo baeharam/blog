@@ -1,0 +1,16 @@
+baseurl = "https://baeharam.github.io"
+title = "배하람 블로그"
+
+languageCode = "ko-KR"
+DefaultContentLanguage = "kr"
+theme = "hugo-hello-programmer-theme"
+disqusShortname = "XXXX"
+googleAnalytics = "UA-XXXXXXXX-X"
+paginate = 7
+
+[author]
+    name = "배하람"
+    email = "gkfka6484@gmail.com"
+
+[params]
+    description = "desribe-your-site"
