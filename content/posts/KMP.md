@@ -14,7 +14,7 @@ KMP 알고리즘은 어떤 문자열 $H$와 $S$가 주어졌고 $H$가 $S$보다
 
 예를 들어, `ABAABAA`라는 문자열 $H$에서 부분문자열 `ABAC`를 찾기 위해선 아래와 같이 찾아야 한다.
 
-<img src="https://raw.githubusercontent.com/baeharam/baeharam.github.io/master/assets/post-img/algorithm/kmp/kmp_brute_force.PNG" width="400px">
+<img src="/static/images/algorithm/kmp/kmp_brute_force.png" width="400px">
 
 당연하게도 시간복잡도는 $H$의 길이를 n, $S$의 길이를 m이라고 했을 때 $O(nm)$이 나오게 되기 때문에 비효율적이라는 것을 한눈에 알 수 있다. 그럼 어떻게 개선할 수 있을까? 
 
