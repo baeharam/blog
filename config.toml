@@ -14,3 +14,6 @@ paginate = 7
 
 [params]
     description = "desribe-your-site"
+
+[permalink]
+    posts = "/:filename/"
