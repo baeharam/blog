@@ -4,7 +4,7 @@ date: 2019-07-10T15:39:39+09:00
 categories: ["Javascript"]
 tags: ["Javascript","Inheritance","Prototype","자바스크립트","상속","프로토타입"]
 cover: "/images/cover/javascript.jpeg"
-draft: true
+draft: false
 ---
 
 자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.

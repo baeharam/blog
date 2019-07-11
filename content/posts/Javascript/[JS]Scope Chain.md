@@ -4,7 +4,7 @@ date: 2019-07-10T11:11:26+09:00
 categories: ["Javascript"]
 tags: ["Javascript","Scope Chain","자바스크립트","스코프 체인"]
 cover: "images/cover/javascript.jpeg"
-draft: true
+draft: false
 ---
 
 ## Lexical Scoping
