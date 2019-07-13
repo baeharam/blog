@@ -3,7 +3,7 @@ title: "[자료구조] 힙(Heap)"
 date: 2019-07-12T10:48:45+09:00
 categories: ["자료구조"]
 tags: ["자료구조", "힙"]
-cover: ""
+cover: "images/cover/data structure.png"
 draft: false
 ---
 
@@ -31,15 +31,15 @@ draft: false
 
 예를들어, `10,2,5,12,17`을 살펴보자.
 
-<img src="https://user-images.githubusercontent.com/35518072/52601848-a5ef9680-2ea3-11e9-9137-26319e2b98c8.png" width="500px">
+<img src="https://user-images.githubusercontent.com/35518072/52601848-a5ef9680-2ea3-11e9-9137-26319e2b98c8.png" width="500px" class="center">
 
 먼저 2와 5가 삽입될 때는 최대 힙이기 때문에 아무 일도 일어나지 않는다.
 
-<img src="https://user-images.githubusercontent.com/35518072/52601983-231b0b80-2ea4-11e9-97ec-f14ef32b712c.png" width="500px">
+<img src="https://user-images.githubusercontent.com/35518072/52601983-231b0b80-2ea4-11e9-97ec-f14ef32b712c.png" width="500px" class="center">
 
 그러나 12가 들어가게 되면 위와 같이 12가 2와 10보다 크기 때문에 루트노드가 된다.
 
-<img src="https://user-images.githubusercontent.com/35518072/52602150-e69bdf80-2ea4-11e9-9636-91bd3e113fdf.png" width="500px">
+<img src="https://user-images.githubusercontent.com/35518072/52602150-e69bdf80-2ea4-11e9-9636-91bd3e113fdf.png" width="500px" class="center">
 
 17도 12때와 마찬가지로 10보다 크고 12보다 크기 때문에 루트노드가 된다. 이제 위 과정을 코드로 살펴보자. 코드로 구현할 때는 보통 루트노드의 인덱스를 1로 잡는 것을 유념하자.
 
@@ -93,7 +93,7 @@ struct DSheap{
 
 예제로는 삽입을 이해할 때 썼던 마지막 구조를 이용하자.
 
-<img src="https://user-images.githubusercontent.com/35518072/52602692-f3213780-2ea6-11e9-87af-d0535911c1e8.png" width="500px">
+<img src="https://user-images.githubusercontent.com/35518072/52602692-f3213780-2ea6-11e9-87af-d0535911c1e8.png" width="500px" class="center">
 
 먼저 루트노드인 17을 삭제한 뒤, 마지막 노드인 10을 루트로 바꾼다. 이후 자식노드 중에 12가 큰 값이므로 10과 12를 비교하는데 12가 더 크기 때문에 바꾼다. 이 과정을 계속해야 하는데, 10이 2보다 크기 때문에 여기서 멈추게 되고 삭제연산이 종료된다.
 
