@@ -3,7 +3,6 @@ title: "[Javascript] 함수형 프로그래밍의 기본"
 date: 2019-07-12T17:14:19+09:00
 categories: ["Javascript"]
 tags: ["Javascript","함수형 프로그래밍"]
-cover: "/images/cover/javascript.jpeg"
 draft: false
 ---
 

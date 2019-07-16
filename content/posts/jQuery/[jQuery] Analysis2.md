@@ -3,7 +3,6 @@ title: "[jQuery] jQuery 1.0 소스코드 분석 (2)"
 date: 2019-07-16T20:10:26+09:00
 categories: ["jQuery"]
 tags: ["jQuery","1.0"]
-cover: ""
 draft: false
 ---
 

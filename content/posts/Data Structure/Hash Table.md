@@ -3,7 +3,6 @@ title: "[자료구조] 해시 테이블(Hash Table)"
 date: 2019-07-12T11:25:43+09:00
 categories: ["자료구조"]
 tags: ["자료구조", "해시 테이블", "해시함수"]
-cover: "images/cover/data structure.png"
 draft: false
 ---
 

@@ -3,7 +3,6 @@ title: "[Javascript] 객체지향 프로그래밍의 기본"
 date: 2019-07-11T17:44:55+09:00
 categories: ["Javascript"]
 tags: ["Javascript","객제지향 프로그래밍"]
-cover: "/images/cover/javascript.jpeg"
 draft: false
 ---
 

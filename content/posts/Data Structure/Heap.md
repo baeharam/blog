@@ -3,7 +3,6 @@ title: "[자료구조] 힙(Heap)"
 date: 2019-07-12T10:48:45+09:00
 categories: ["자료구조"]
 tags: ["자료구조", "힙"]
-cover: "images/cover/data structure.png"
 draft: false
 ---
 

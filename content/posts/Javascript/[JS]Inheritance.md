@@ -3,7 +3,6 @@ title: "[Javascript] Inheritance"
 date: 2019-07-10T15:39:39+09:00
 categories: ["Javascript"]
 tags: ["Javascript","Inheritance","Prototype","자바스크립트","상속","프로토타입"]
-cover: "/images/cover/javascript.jpeg"
 draft: false
 ---
 

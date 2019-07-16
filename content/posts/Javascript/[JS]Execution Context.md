@@ -3,7 +3,6 @@ title: "[Javascript] Execution Context"
 date: 2019-07-10T09:27:48+09:00
 categories: ["Javascript"]
 tags: ["Javascript","Execution Context","자바스크립트","실행 컨텍스트"]
-cover: "images/cover/javascript.jpeg"
 draft: false
 ---
 
