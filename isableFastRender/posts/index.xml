@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 배하람 블로그</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Thu, 18 Jul 2019 14:50:07 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Array와 Array.prototype의 메서드</title>
+      <link>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</link>
+      <pubDate>Thu, 18 Jul 2019 14:50:07 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</guid>
+      <description>기존 메서드  Array.prototype.slice([begin[, end]])  var a = [1,2,3,4]; var b = a.slice(0,3); // [1,2,3]  begin 이상 end 미만의 부분 배열 리턴
+ Array.prototype.splice(start[, deleteCount[, item1[, item2[, &amp;hellip;]]]])  var a = [1,2,3,4]; a.slice(2,1,5); // [1,2,5,4]  start 에서 시작해서 deleteCount 만큼 제거하고 item1 삽입
+ES6의 새로운 메서드  Array.prototype.find(callback[, thisArg])  var a = [1,2,3,4]; var b = a.find((num) =&amp;gt; num%2 === 0); // 2  주어진 조건을 만족하는 첫번째 요소를 반환</description>
+    </item>
+    
+    <item>
+      <title>[jQuery] jQuery 1.0 소스코드 분석 (3)</title>
+      <link>http://localhost:1313/posts/jquery/jquery-analysis3/</link>
+      <pubDate>Wed, 17 Jul 2019 18:44:04 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/jquery/jquery-analysis3/</guid>
+      <description>jQuery.event.add() function(element, type, handler) { ... // Make sure that the function being executed has a unique ID if ( !handler.guid ) handler.guid = this.guid++; ... }   element : id에 해당하는 DOM 객체 type : &amp;lsquo;click&amp;rsquo; 이벤트 타입 handler : 해당 이벤트에 대한 콜백 함수  위의 인자로 넘어온 상황에서 콜백함수인 handler 의 프로퍼티에 guid 가 없다면 동적으로 만들고 this.guid 로 초기화한다. 여기서 this 는 jQuery.event 객체이며 초기값으로 guid: 1 을 갖는다.</description>
+    </item>
+    
+    <item>
+      <title>[CSS] line-height</title>
+      <link>http://localhost:1313/posts/css/css-line-height/</link>
+      <pubDate>Wed, 17 Jul 2019 16:37:28 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/css/css-line-height/</guid>
+      <description>원래의 목적  The line-height CSS property sets the height of a line box. It&amp;rsquo;s commonly used to set the distance between lines of text. On block-level elements, it specifies the minimum height of line boxes within the element. On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+line-height 는 line box의 높이를 설정하는 CSS의 속성이다. 이는 보통 텍스트의 줄 간격 사이를 정하기 위해 사용된다.</description>
+    </item>
+    
+    <item>
+      <title>[jQuery] jQuery 1.0 소스코드 분석 (2)</title>
+      <link>http://localhost:1313/posts/jquery/jquery-analysis2/</link>
+      <pubDate>Tue, 16 Jul 2019 20:10:26 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/jquery/jquery-analysis2/</guid>
+      <description>this.get() 여기서의 this 는 새로 생성할 jQuery 객체에 바인딩 되기 때문에 메서드 get() 은 jQuery.prototype.get() 을 말한다. 따라서 해당 소스코드를 봐야 한다.
+function( num ) { // Watch for when an array (of elements) is passed in if ( num &amp;amp;&amp;amp; num.constructor == Array ) { // Use a tricky hack to make the jQuery object // look and feel like an array this.length = 0; [].push.apply( this, num ); return this; } else return num == undefined ?</description>
+    </item>
+    
+    <item>
+      <title>[jQuery] jQuery 1.0 소스코드 분석 (1)</title>
+      <link>http://localhost:1313/posts/jquery/jquery-analysis1/</link>
+      <pubDate>Tue, 16 Jul 2019 17:03:11 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/jquery/jquery-analysis1/</guid>
+      <description>소스 코드
+jQuery 객체와 변수 $의 매핑 스크립트가 로드 되면서 jQuery 객체가 선언되고 해당 객체는 변수 $ 에 매핑된다.
+function jQuery(a,c) { ... } // Map the jQuery namespace to the &#39;$&#39; one var $ = jQuery;  jQuery.prototype 객체 변경 jQuery.fn = jQuery.prototype = { jquery: &amp;quot;$Rev: 509 $&amp;quot;, size: ~ get: ~ ... add: ~ is: ~ domManip: ~ pushStack: ~ };  jQuery.prototype 객체를 변경함과 동시에 jQuery.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] 함수형 프로그래밍의 기본</title>
+      <link>http://localhost:1313/posts/javascript/jsfunctional-programming/</link>
+      <pubDate>Fri, 12 Jul 2019 17:14:19 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsfunctional-programming/</guid>
+      <description>개념 함수형 프로그래밍이란 연산할 대상이 &amp;ldquo;함수&amp;rdquo;가 되는 프로그래밍 패러다임으로 내부의 데이터와 상태를 그대로 둔 채 여러가지의 함수를 조합하여 작업을 수행하는 방식이다. 선언형 프로그래밍(Declarative Programming)의 한 종류로 기존의 절차지향 프로그래밍, 객체지향 프로그래밍이 속하는 명령형 프로그래밍(Imperative Programming)과는 다른 부류이다. 기존에 나는 명령형 프로그래밍으로 공부해왔기 때문에 이 개념이 익숙치 않고 이를 위해서 계속 정리하고자 한다.
+순수 함수(Pure Function) 순수함수는 말 그대로 순수한 함수, 즉 외부의 요인을 건드리지 않은채 매개변수를 받아 자신에게 정해진 로직만을 처리하는 함수를 말한다.</description>
+    </item>
+    
+    <item>
+      <title>[자료구조] 해시 테이블(Hash Table)</title>
+      <link>http://localhost:1313/posts/data-structure/hash-table/</link>
+      <pubDate>Fri, 12 Jul 2019 11:25:43 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/data-structure/hash-table/</guid>
+      <description>해싱이란? (Hashing) 해싱이란 임의의 길이의 값을 해시함수(Hash Function)를 사용하여 고정된 크기의 값으로 변환하는 작업을 말한다.
+그림 출처
+위 그림에서 dog 라는 문자열을 해시함수를 이용해 새로운 값으로 변환한 것을 볼 수 있는데 이 경우엔 암호화에 쓰이는 해시 알고리즘인 MD5를 사용한 것이다. 하지만 여기서 다룰 것은 암호화에 쓰인 방식이 아닌 자료구조로 사용하고자 하는 해시 테이블을 다루기 때문에 정수값으로 변환되는 해시 알고리즘을 사용한다. 해싱을 사용하여 데이터를 저장하는 자료구조를 해시 테이블(Hash Table)이라고 하며 이는 기존 자료구조인 이진탐색트리나 배열에 비해서 굉장히 빠른 속도로 탐색, 삽입, 삭제를 할 수 있기 때문에 컴퓨터 공학도라면 반드시 알아야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[자료구조] 힙(Heap)</title>
+      <link>http://localhost:1313/posts/data-structure/heap/</link>
+      <pubDate>Fri, 12 Jul 2019 10:48:45 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/data-structure/heap/</guid>
+      <description>힙의 정의 힙(Heap)이란 완전 이진 트리의 한 종류로 최댓값이나 최솟값을 빠르게 찾아내기 위해 고안된 자료구조이다. 힙의 각 노드는 키(Key)라는 값으로 구성되며 부모노드와 자식노드와의 관계는 다음이 성립한다.
+ A가 부모노드, B가 자식노드일 경우 A의 키 값과 B의 키 값에는 대소관계가 주어진다.  힙은 자식 노드에 따라 여러가지 종류로 구분되지만 대부분 자식 노드 2개를 갖는 이진 힙(Binary Heap)을 사용하며 우선순위 큐(Priority Queue)의 구현체로 이용되거나 힙 정렬(Heap Sort)에 이용된다. 우선순위 큐가 사용되는 알고리즘으로는 최단경로를 찾는 다익스트라(Dijkstra) 알고리즘이 존재한다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] 객체지향 프로그래밍의 기본</title>
+      <link>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+      <pubDate>Thu, 11 Jul 2019 17:44:55 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</guid>
+      <description>캡슐화의 구현 기존의 객체지향 프로그래밍에서 캡슐화(Encapsulation)는 관련된 정보를 하나의 틀 안에 담는 개념, 즉 관련된 멤버 변수와 메소드를 클래스라는 틀 안에 담는 개념이다. 이때 중요한 것이 바로 해당 정보의 공개수준인데 정보은닉(Information Hiding)이라고 하며 보통 private, public 등으로 사용할 수 있다. 자바스크립트에선 캡슐화와 정보은닉을 클로저를 통해 구현할 수 있다.
+var Person = function(arg) { var name = arg ? arg : &#39;haram&#39;; var F = function(){} F.prototype = { setName: function(arg2) { name = arg; }, getName: function() { return name; } }; return F; }();  IIFE를 통해서 클로저인 F 를 반환받고 F.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Inheritance</title>
+      <link>http://localhost:1313/posts/javascript/jsinheritance/</link>
+      <pubDate>Wed, 10 Jul 2019 15:39:39 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsinheritance/</guid>
+      <description>자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.
+프로토타입 기반의 상속 공통 메소드 생성자 함수를 통해서 객체를 생성할 수 있는데, 이렇게 생성해낸 객체가 공통의 메소드를 가지게 하기 위해선 어떻게 해야할까? 직관적인 방법으로 생성자 함수 내에 메소드를 정의하면 그로 인해 생성되는 객체는 당연히 해당 메소드를 공통으로 가지게 된다. 하지만 이는 불필요하게 중복되는 영역을 메모리에 올려놓는 형태이므로 프로토타입을 사용해야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Scope Chain</title>
+      <link>http://localhost:1313/posts/javascript/jsscope-chain/</link>
+      <pubDate>Wed, 10 Jul 2019 11:11:26 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsscope-chain/</guid>
+      <description>Lexical Scoping 자바스크립트의 컴파일러는 토큰화(Tokenizing)와 렉싱(Lexing)을 처음에 하는데 이는 코드를 토큰 단위로 분리하여 의미를 매핑시키는 단계이다. Lex-time 이란 토큰에 의미를 부여하는 렉싱 과정을 말하며 이 때 자바스크립트의 스코핑 개념인 렉시컬 스코프가 형성된다.
+Lexical scoping은 기존 함수 호출에 따른 dynamic scoping과는 반대되는 개념으로 함수를 선언할 때(Write time) 정의되는 스코핑 형태를 말한다. 말 그대로 함수가 어디에 적혀있는가에 따라서 스코프가 구성되는 방식이므로 lex-time과 연관이 되는 것이다. 따라서, 스코프 체인을 이해하기 위해선 lexical scoping에 대한 이해가 필수적이며 이 개념을 활용하여 구성되게 된다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Execution Context</title>
+      <link>http://localhost:1313/posts/javascript/jsexecution-context/</link>
+      <pubDate>Wed, 10 Jul 2019 09:27:48 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsexecution-context/</guid>
+      <description>정의 ECMAScript 에서 정의하는 EC(Execution Context)는 다음과 같이 표현한다.
+ Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.
+실행 컨텍스트는 실행가능한 코드를 형상화하고 구분하는 추상적인 개념이다.
+ 즉, EC는 자바스크립트 엔진이 코드를 실행할 때 생성되는 하나의 환경(environment)이라고 할 수 있다.
+종류  전역 실행 컨텍스트 (Global Execution Context, GEC)  GEC는 브라우저에서 자바스크립트를 처음 로드할 때 생성되는 EC로 어떠한 함수나 객체에도 속하지 않고 전역공간에 놓인 모든 코드들이 속하는 EC이다.</description>
+    </item>
+    
+    <item>
+      <title>[알고리즘] Lazy Propagation</title>
+      <link>http://localhost:1313/posts/algorithm/lazy-propagation/</link>
+      <pubDate>Tue, 09 Jul 2019 12:10:49 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/lazy-propagation/</guid>
+      <description>개념 기존 세그먼트 트리에서 하나의 리프노드를 업데이트 할 때 $O(lgN)$ 이 걸리기 때문에 구간 업데이트에 관련된 문제가 나올 경우 최대 $O(NlgN)$ 이 걸려서 시간초과를 받게 된다. 따라서 이를 위해 다른 알고리즘이 필요한데 바로 이러한 구간 업데이트를 단 $O(lgN)$ 만에 수행할 수 있는 테크닉이 lazy propagation이다. 이름의 뜻 그대로 게으르게(lazy) 전파(propagation) 한다는 것으로 특정 업데이트 구간에 포함되는 노드들에게 나중에 전파시킬 값을 저장해 둠으로써 다음 업데이트나 쿼리를 할 때 마다 자식노드들 한테만 전파해주면 되게 된다.</description>
+    </item>
+    
+    <item>
+      <title>[알고리즘] KMP 알고리즘</title>
+      <link>http://localhost:1313/posts/algorithm/kmp/</link>
+      <pubDate>Mon, 08 Jul 2019 17:38:54 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/kmp/</guid>
+      <description>다른 분야도 약하긴 하지만, 문자열이 상당히 약하기 때문에 전에 대충 공부했던 KMP를 다시 꺼내들어서 공부했다. 상당히 어려운 알고리즘이었고 이해하는데 꽤 오랜 시간이 걸렸다. 까먹으면 안되겠지만 혹시 몰라서 까먹을 나중을 위해서 공들여 정리하고자 한다.
+개요 KMP 알고리즘은 어떤 문자열 $H$와 $S$가 주어졌고 $H$가 $S$보다 긴 경우에, $H$ 안에 $S$가 포함되어 있는지를 탐색하는 알고리즘이다. 자, 생각을 해보자. 예를 들어 단순 브루트 포스로 $S$를 탐색한다면 상당히 오랜 시간이 걸릴 수밖에 없다.
+예를 들어, ABAABAA라는 문자열 $H$에서 부분문자열 ABAC를 찾기 위해선 아래와 같이 찾아야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[알고리즘] 확장 유클리드 알고리즘</title>
+      <link>http://localhost:1313/posts/algorithm/extended-euclidean/</link>
+      <pubDate>Mon, 08 Jul 2019 17:35:22 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/extended-euclidean/</guid>
+      <description>유클리드 호제법(Euclidean algorithm) 정의 유클리드 호제법(= 유클리드 알고리즘)은 두 정수 사이의 최대공약수를 보다 효과적으로 구하는 방법으로 두 정수 $a,b$ 가 존재할 때 다음 식을 만족하는 방법론을 일컫는 말이다. $$ GCD(A,B) = GCD(B,r) $$ 이 때 $A\gt B$ 가 성립하며 $A\equiv r\ (mod\ B)$ 를 조건으로 한다.
+증명 두 정수 $A,B(A \gt B)$ 의 최대공약수(GCD)를 $G$ 라고 하자. $G$ 는 공약수이므로 두 서로소 $a,b$ 에 대해 다음 식이 성립한다. $$ A=aG, B=bG $$ $A$ 를 $B$ 로 나눈 나머지를 $r$ , 몫을 $q$ 라고 하면 $A=qB+r\ (0\le r \lt \lvert B \rvert)$ 를 만족한다.</description>
+    </item>
+    
+  </channel>
+</rss>

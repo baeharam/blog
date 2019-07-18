@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Execution Context on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/execution-context/</link>
+    <description>Recent content in Execution Context on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Wed, 10 Jul 2019 09:27:48 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/execution-context/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Execution Context</title>
+      <link>http://localhost:1313/posts/javascript/jsexecution-context/</link>
+      <pubDate>Wed, 10 Jul 2019 09:27:48 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsexecution-context/</guid>
+      <description>정의 ECMAScript 에서 정의하는 EC(Execution Context)는 다음과 같이 표현한다.
+ Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.
+실행 컨텍스트는 실행가능한 코드를 형상화하고 구분하는 추상적인 개념이다.
+ 즉, EC는 자바스크립트 엔진이 코드를 실행할 때 생성되는 하나의 환경(environment)이라고 할 수 있다.
+종류  전역 실행 컨텍스트 (Global Execution Context, GEC)  GEC는 브라우저에서 자바스크립트를 처음 로드할 때 생성되는 EC로 어떠한 함수나 객체에도 속하지 않고 전역공간에 놓인 모든 코드들이 속하는 EC이다.</description>
+    </item>
+    
+  </channel>
+</rss>

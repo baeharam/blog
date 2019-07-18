@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Javascript on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/javascript/</link>
+    <description>Recent content in Javascript on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Thu, 18 Jul 2019 14:50:07 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Array와 Array.prototype의 메서드</title>
+      <link>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</link>
+      <pubDate>Thu, 18 Jul 2019 14:50:07 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</guid>
+      <description>기존 메서드  Array.prototype.slice([begin[, end]])  var a = [1,2,3,4]; var b = a.slice(0,3); // [1,2,3]  begin 이상 end 미만의 부분 배열 리턴
+ Array.prototype.splice(start[, deleteCount[, item1[, item2[, &amp;hellip;]]]])  var a = [1,2,3,4]; a.slice(2,1,5); // [1,2,5,4]  start 에서 시작해서 deleteCount 만큼 제거하고 item1 삽입
+ES6의 새로운 메서드  Array.prototype.find(callback[, thisArg])  var a = [1,2,3,4]; var b = a.find((num) =&amp;gt; num%2 === 0); // 2  주어진 조건을 만족하는 첫번째 요소를 반환</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] 함수형 프로그래밍의 기본</title>
+      <link>http://localhost:1313/posts/javascript/jsfunctional-programming/</link>
+      <pubDate>Fri, 12 Jul 2019 17:14:19 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsfunctional-programming/</guid>
+      <description>개념 함수형 프로그래밍이란 연산할 대상이 &amp;ldquo;함수&amp;rdquo;가 되는 프로그래밍 패러다임으로 내부의 데이터와 상태를 그대로 둔 채 여러가지의 함수를 조합하여 작업을 수행하는 방식이다. 선언형 프로그래밍(Declarative Programming)의 한 종류로 기존의 절차지향 프로그래밍, 객체지향 프로그래밍이 속하는 명령형 프로그래밍(Imperative Programming)과는 다른 부류이다. 기존에 나는 명령형 프로그래밍으로 공부해왔기 때문에 이 개념이 익숙치 않고 이를 위해서 계속 정리하고자 한다.
+순수 함수(Pure Function) 순수함수는 말 그대로 순수한 함수, 즉 외부의 요인을 건드리지 않은채 매개변수를 받아 자신에게 정해진 로직만을 처리하는 함수를 말한다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] 객체지향 프로그래밍의 기본</title>
+      <link>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+      <pubDate>Thu, 11 Jul 2019 17:44:55 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</guid>
+      <description>캡슐화의 구현 기존의 객체지향 프로그래밍에서 캡슐화(Encapsulation)는 관련된 정보를 하나의 틀 안에 담는 개념, 즉 관련된 멤버 변수와 메소드를 클래스라는 틀 안에 담는 개념이다. 이때 중요한 것이 바로 해당 정보의 공개수준인데 정보은닉(Information Hiding)이라고 하며 보통 private, public 등으로 사용할 수 있다. 자바스크립트에선 캡슐화와 정보은닉을 클로저를 통해 구현할 수 있다.
+var Person = function(arg) { var name = arg ? arg : &#39;haram&#39;; var F = function(){} F.prototype = { setName: function(arg2) { name = arg; }, getName: function() { return name; } }; return F; }();  IIFE를 통해서 클로저인 F 를 반환받고 F.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Inheritance</title>
+      <link>http://localhost:1313/posts/javascript/jsinheritance/</link>
+      <pubDate>Wed, 10 Jul 2019 15:39:39 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsinheritance/</guid>
+      <description>자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.
+프로토타입 기반의 상속 공통 메소드 생성자 함수를 통해서 객체를 생성할 수 있는데, 이렇게 생성해낸 객체가 공통의 메소드를 가지게 하기 위해선 어떻게 해야할까? 직관적인 방법으로 생성자 함수 내에 메소드를 정의하면 그로 인해 생성되는 객체는 당연히 해당 메소드를 공통으로 가지게 된다. 하지만 이는 불필요하게 중복되는 영역을 메모리에 올려놓는 형태이므로 프로토타입을 사용해야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Scope Chain</title>
+      <link>http://localhost:1313/posts/javascript/jsscope-chain/</link>
+      <pubDate>Wed, 10 Jul 2019 11:11:26 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsscope-chain/</guid>
+      <description>Lexical Scoping 자바스크립트의 컴파일러는 토큰화(Tokenizing)와 렉싱(Lexing)을 처음에 하는데 이는 코드를 토큰 단위로 분리하여 의미를 매핑시키는 단계이다. Lex-time 이란 토큰에 의미를 부여하는 렉싱 과정을 말하며 이 때 자바스크립트의 스코핑 개념인 렉시컬 스코프가 형성된다.
+Lexical scoping은 기존 함수 호출에 따른 dynamic scoping과는 반대되는 개념으로 함수를 선언할 때(Write time) 정의되는 스코핑 형태를 말한다. 말 그대로 함수가 어디에 적혀있는가에 따라서 스코프가 구성되는 방식이므로 lex-time과 연관이 되는 것이다. 따라서, 스코프 체인을 이해하기 위해선 lexical scoping에 대한 이해가 필수적이며 이 개념을 활용하여 구성되게 된다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Execution Context</title>
+      <link>http://localhost:1313/posts/javascript/jsexecution-context/</link>
+      <pubDate>Wed, 10 Jul 2019 09:27:48 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsexecution-context/</guid>
+      <description>정의 ECMAScript 에서 정의하는 EC(Execution Context)는 다음과 같이 표현한다.
+ Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.
+실행 컨텍스트는 실행가능한 코드를 형상화하고 구분하는 추상적인 개념이다.
+ 즉, EC는 자바스크립트 엔진이 코드를 실행할 때 생성되는 하나의 환경(environment)이라고 할 수 있다.
+종류  전역 실행 컨텍스트 (Global Execution Context, GEC)  GEC는 브라우저에서 자바스크립트를 처음 로드할 때 생성되는 EC로 어떠한 함수나 객체에도 속하지 않고 전역공간에 놓인 모든 코드들이 속하는 EC이다.</description>
+    </item>
+    
+  </channel>
+</rss>

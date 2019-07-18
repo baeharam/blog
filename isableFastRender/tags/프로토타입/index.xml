@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>프로토타입 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/</link>
+    <description>Recent content in 프로토타입 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Wed, 10 Jul 2019 15:39:39 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Inheritance</title>
+      <link>http://localhost:1313/posts/javascript/jsinheritance/</link>
+      <pubDate>Wed, 10 Jul 2019 15:39:39 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsinheritance/</guid>
+      <description>자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.
+프로토타입 기반의 상속 공통 메소드 생성자 함수를 통해서 객체를 생성할 수 있는데, 이렇게 생성해낸 객체가 공통의 메소드를 가지게 하기 위해선 어떻게 해야할까? 직관적인 방법으로 생성자 함수 내에 메소드를 정의하면 그로 인해 생성되는 객체는 당연히 해당 메소드를 공통으로 가지게 된다. 하지만 이는 불필요하게 중복되는 영역을 메모리에 올려놓는 형태이므로 프로토타입을 사용해야 한다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>힙 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%ED%9E%99/</link>
+    <description>Recent content in 힙 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Fri, 12 Jul 2019 10:48:45 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%ED%9E%99/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[자료구조] 힙(Heap)</title>
+      <link>http://localhost:1313/posts/data-structure/heap/</link>
+      <pubDate>Fri, 12 Jul 2019 10:48:45 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/data-structure/heap/</guid>
+      <description>힙의 정의 힙(Heap)이란 완전 이진 트리의 한 종류로 최댓값이나 최솟값을 빠르게 찾아내기 위해 고안된 자료구조이다. 힙의 각 노드는 키(Key)라는 값으로 구성되며 부모노드와 자식노드와의 관계는 다음이 성립한다.
+ A가 부모노드, B가 자식노드일 경우 A의 키 값과 B의 키 값에는 대소관계가 주어진다.  힙은 자식 노드에 따라 여러가지 종류로 구분되지만 대부분 자식 노드 2개를 갖는 이진 힙(Binary Heap)을 사용하며 우선순위 큐(Priority Queue)의 구현체로 이용되거나 힙 정렬(Heap Sort)에 이용된다. 우선순위 큐가 사용되는 알고리즘으로는 최단경로를 찾는 다익스트라(Dijkstra) 알고리즘이 존재한다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Javascript] Inheritance  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[Javascript] Inheritance'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[Javascript] Inheritance">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-10">
+  
+  <meta property="og:description" content="desribe-your-site '[Javascript] Inheritance'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/javascript/jsinheritance/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="Javascript">
+  
+  <meta property="og:tags" content="Inheritance">
+  
+  <meta property="og:tags" content="Prototype">
+  
+  <meta property="og:tags" content="자바스크립트">
+  
+  <meta property="og:tags" content="상속">
+  
+  <meta property="og:tags" content="프로토타입">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/javascript/jsinheritance/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/javascript/jsinheritance/">
+      <div class="post-meta">
+        <time>2019년 07월 10일 15시 39분</time>
+        <h1>[Javascript] Inheritance</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<p>자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.</p>
+
+<h2 id="프로토타입-기반의-상속">프로토타입 기반의 상속</h2>
+
+<h3 id="공통-메소드">공통 메소드</h3>
+
+<p>생성자 함수를 통해서 객체를 생성할 수 있는데, 이렇게 생성해낸 객체가 공통의 메소드를 가지게 하기 위해선 어떻게 해야할까? 직관적인 방법으로 생성자 함수 내에 메소드를 정의하면 그로 인해 생성되는 객체는 당연히 해당 메소드를 공통으로 가지게 된다. 하지만 이는 불필요하게 중복되는 영역을 메모리에 올려놓는 형태이므로 프로토타입을 사용해야 한다. 프로토타입을 활용하면 메소드를 위한 함수객체의 중복생성을 방지하면서 프로토타입 체인을 통해 공통 메소드에 접근할 수 있다.</p>
+
+<pre><code class="language-javascript">function Person(arg) {
+  this.name = arg;
+}
+
+Person.prototype.getName = function() {
+  return this.name;
+}
+
+Person.prototype.setName = function(arg) {
+  this.name = arg;
+}
+
+var me = new Person('me');
+var you = new Person('you');
+console.log(me.getName()); // me
+console.log(you.getName()); // you
+</code></pre>
+
+<p>이를 좀더 간단하게 표현하기 위해 더글라스 크락포드가 제시한 방식을 사용하면 <code>Function</code> 객체의 프로퍼티에 메소드를 정의하는 메소드를 추가하는 방법이 있다.</p>
+
+<pre><code class="language-javascript">Function.prototype.method(name, func) {
+  if(!this.prototype[name]) {
+    this.prototype[name] = func;
+  }
+}
+</code></pre>
+
+<p>이를 활용하면 <code>Person.method('setName', function…)</code> 과 같이 사용할 수 있어서 조금 더 간결해진다.</p>
+
+<h3 id="부모-객체의-메소드-상속">부모 객체의 메소드 상속</h3>
+
+<p>이제 이 개념을 기억하고 프로토타입 기반의 상속을 구현해보자. 더글라스 크락포드가 오래전에 제시한 상속 구현코드를 보면서 구현해보도록 하자.</p>
+
+<pre><code class="language-javascript">function createObj(obj) {
+  function F() {}
+  F.prototype = obj;
+  return new F();
+}
+
+var parent = {
+  name: 'parent',
+  setName: (name) =&gt; this.name = name,
+  getName: () =&gt; this.name
+};
+
+
+var child = createObj(parent);
+child.setName('child');
+console.log(child.getName()); // child
+</code></pre>
+
+<p>먼저 빈 생성자 함수객체 <code>F()</code> 를 만든 뒤 <code>prototype</code> 을 매개변수로 전달받은 객체로 선언한다. 이 말은 곧 새로 생성할 객체의 부모객체가 <code>obj</code> 가 된다는 말과 동일하며 생성자 함수를 통해 객체를 생성하여 리턴한다.  결국 <code>F()</code> 를 매개체로 하여 프로토타입을 통해 상속을 구현했다고 할 수 있다. 여기서 <code>createObj()</code> 와 같은 함수는 ES5에서 <code>Object.create()</code> 로 제공된다.</p>
+
+<h3 id="자식-객체의-메소드-확장">자식 객체의 메소드 확장</h3>
+
+<p>부모 객체의 메소드를 재정의하거나 아니면 자신만의 메소드를 구현하여 확장할 수 있어야 하는데 이 때 사용하는 함수가 자바스크립트에서 범용적으로 사용하는 <code>extend()</code> 이다. 이는 기본적으로 아래와 같이 구현된다. (jQuery 1.0의 구현)</p>
+
+<pre><code class="language-javascript">function extend(obj1, obj2) {
+  if(!obj2) {
+    obj2 = obj1;
+    obj1 = this;
+  }
+  for(var prop in obj1) {
+    obj1[prop] = obj2[prop];
+  }
+  return obj1;
+}
+</code></pre>
+
+<p><code>obj1</code> 에 <code>obj2</code> 를 추가하는 함수로 만약 <code>obj2</code> 가 없을 경우엔 <code>this</code> 에 <code>obj1</code> 을 추가하는 방식이다. 이는 간단하긴 하지만 <strong>얕은복사(Shallow Copy)</strong>만 가능할 뿐 객체나 배열의 프로퍼티를 추가하면 해당 참조값이 추가되기 때문에 배열과 객체에 한해서는 <strong>깊은복사(Deep Copy)</strong>를 구현해야 한다. jQuery의 <a href="https://github.com/jquery/jquery/blob/438b1a3e8a52d3e4efd8aba45498477038849c97/src/core.js">core.js</a> 120번째 줄을 보면 <code>extend()</code> 의 보완된 구현이 있으니 더 깊은 내용은 해당 소스코드를 보도록 하자. 단순히 위 함수를 활용한 예시를 보면,</p>
+
+<pre><code class="language-javascript">...
+var forExtend = {
+  setAge: (age) =&gt; this.age = age,
+  getAge: () =&gt; this.age
+};
+child.extend(forExtend);
+child.setAge(10);
+console.log(child.getAge()); // 10
+</code></pre>
+
+<p>새로운 객체 리터럴인 <code>forExtend</code> 를 정의하여 이를 <code>extend()</code> 로 <code>child</code> 에 추가시킨 코드이다. 이를 통해 <code>child</code> 는 부모 객체의 메소드 뿐만 아니라 자신의 확장된 메소드 또한 사용할 수 있게 된다.</p>
+
+<h2 id="클래스-기반의-상속">클래스 기반의 상속</h2>
+
+<h3 id="부모-객체를-활용한-상속">부모 객체를 활용한 상속</h3>
+
+<p>이 방법 또한 프로토타입 기반의 상속과 비슷하긴 하지만 생성자 함수로 생성한 객체를 프로토타입으로 가진다는 점이 다르다고 할 수 있다. 아래와 같은 코드를 보자.</p>
+
+<pre><code class="language-javascript">function Parent(name) {
+    this.name = name;
+}
+
+Parent.prototype.setName = function(name) {
+    this.name = name;
+}
+Parent.prototype.getName = function(){ 
+    return this.name;
+};
+
+function Child() {
+    Parent.apply(this,arguments);
+}
+
+var parent = new Parent('parent');
+Child.prototype = parent;
+
+var child = new Child('child');
+console.log(child.getName());
+</code></pre>
+
+<p>생성자 함수인 <code>Parent()</code> 를 통해서 객체 <code>parent</code> 를 생성하고 자식의 생성자 함수인 <code>Child()</code> 의 <code>prototype</code> 으로 <code>parent</code> 를 설정한 상황이다. 따라서 <code>child.getName()</code> 을 호출할 때 프로토타입 객체인 <code>parent</code> 를 거치고  <code>parent</code> 의 프로토타입 객체인 <code>Parent.prototype</code> 까지 가서 호출하게 된다.</p>
+
+<p>여기서 주목할 점은 생성자 함수인 <code>Child()</code> 에서 부모객체의 생성자 함수인 <code>Parent()</code> 를 <code>apply</code> 메소드로 호출한다는 점인데 이는 기존의 클래스 기반 언어에서 당연하게 적용되는 부모생성자의 호출과 동일한 맥락이라고 볼 수 있다.</p>
+
+<h3 id="자식-객체의-확장을-위한-개선">자식 객체의 확장을 위한 개선</h3>
+
+<p>자식의 프로토타입 객체인 <code>parent</code> 에 메소드를 추가하게 되면 해당 객체 자체에 메소드가 추가되는 것이므로 <code>parent</code> 와 <code>child</code> 를 독립적으로 분리시킬 필요성이 있다. 이를 위해 빈 생성자 함수 객체를 활용하여 다음과 같이 구현한다.</p>
+
+<pre><code class="language-javascript">function Parent(name) {
+  this.name = name;
+}
+
+Function.prototype.method(name, func) {
+  this.prototype[name] = func;
+}
+
+Parent.method('setName', function(name) {
+	this.name = name;
+});
+
+Parent.method('getName', function() {
+  return this.name;
+});
+
+function Child() {}
+
+function F() {}
+F.prototype = Person.prototype;
+Child.prototype = new F();
+F.prototype.constructor = Child;
+Child.super = Person.prototype;
+
+var child = new Child();
+child.setName('child');
+console.log(child.getName()); // child
+</code></pre>
+
+<p>이제 <code>child</code> 는 생성자 함수 <code>F()</code> 로 생성된 객체를 프로토타입 객체로 가지며 프로토타입 체인을 통해서 메소드를 호출하게 된다. 또한 이제 자식객체의 프로토타입을 통해 확장시킬 수도 있게 된다. 스토얀 스테파노프가 위 코드를 클로저로 최적화시켜 <code>F()</code> 가 한번만 생성되도록 한 것이 바로 다음과 같다.</p>
+
+<pre><code class="language-javascript">var inherit = function(Parent, Child) {
+  var F = function() {};
+  return function(Parent,Child) {
+    F.prototype = Parent.prototype;
+    Child.prototype = new F();
+    Child.prototype.constructor = Child;
+    Child.super = Parent.prototype;
+  };
+}();
+</code></pre>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="http://www.yes24.com/Product/Goods/11781589?scode=032&amp;OzSrank=1">인사이드 자바스크립트</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsinheritance%2f&t=%5bJavascript%5d%20Inheritance"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsinheritance%2f&text=%5bJavascript%5d%20Inheritance&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsinheritance%2f&title=%5bJavascript%5d%20Inheritance"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsinheritance%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 10일 15시 39분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/javascript">#Javascript</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/javascript">#Javascript</a>
+        
+        <a href="http://localhost:1313/tags/inheritance">#Inheritance</a>
+        
+        <a href="http://localhost:1313/tags/prototype">#Prototype</a>
+        
+        <a href="http://localhost:1313/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8">#자바스크립트</a>
+        
+        <a href="http://localhost:1313/tags/%EC%83%81%EC%86%8D">#상속</a>
+        
+        <a href="http://localhost:1313/tags/%ED%94%84%EB%A1%9C%ED%86%A0%ED%83%80%EC%9E%85">#프로토타입</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsscope-chain/" rel="prev">
+          <span>[Javascript] Scope Chain</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" rel="next">
+          <span>[Javascript] 객체지향 프로그래밍의 기본</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

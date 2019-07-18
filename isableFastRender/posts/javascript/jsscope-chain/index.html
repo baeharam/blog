@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Javascript] Scope Chain  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[Javascript] Scope Chain'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[Javascript] Scope Chain">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-10">
+  
+  <meta property="og:description" content="desribe-your-site '[Javascript] Scope Chain'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/javascript/jsscope-chain/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="Javascript">
+  
+  <meta property="og:tags" content="Scope Chain">
+  
+  <meta property="og:tags" content="자바스크립트">
+  
+  <meta property="og:tags" content="스코프 체인">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/javascript/jsscope-chain/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/javascript/jsscope-chain/">
+      <div class="post-meta">
+        <time>2019년 07월 10일 11시 11분</time>
+        <h1>[Javascript] Scope Chain</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="lexical-scoping">Lexical Scoping</h2>
+
+<p>자바스크립트의 컴파일러는 토큰화(Tokenizing)와 렉싱(Lexing)을 처음에 하는데 이는 코드를 토큰 단위로 분리하여 의미를 매핑시키는 단계이다. Lex-time 이란 토큰에 의미를 부여하는 렉싱 과정을 말하며 이 때 자바스크립트의 스코핑 개념인 렉시컬 스코프가 형성된다.</p>
+
+<p>Lexical scoping은 기존 함수 호출에 따른 dynamic scoping과는 반대되는 개념으로 함수를 선언할 때(Write time) 정의되는 스코핑 형태를 말한다. 말 그대로 함수가 어디에 적혀있는가에 따라서 스코프가 구성되는 방식이므로 lex-time과 연관이 되는 것이다. 따라서, 스코프 체인을 이해하기 위해선 lexical scoping에 대한 이해가 필수적이며 이 개념을 활용하여 구성되게 된다.</p>
+
+<h2 id="scope-chain">Scope Chain</h2>
+
+<p>Scope chain은 EC가 만들어질 때 생성과 초기화가 처음으로 이루어지는 연결리스트 형태의 프로퍼티로 <code>[[Scopes]]</code> 로 참조되며 처음 요소가 현재 활성화된 EC의 변수객체를 가리키며 제일 나중에 GEC의 변수객체인 GO를 가리키는 형태로 구성된다.</p>
+
+<pre><code class="language-javascript">var a = 1;
+function func1() {
+  var b = 2;
+  function func2() {
+    console.log(a+b);
+  }
+  func2();
+}
+func1();
+</code></pre>
+
+<p>여기서 변수 <code>a</code> 는 GEC의 스코프체인에 속한 GEC의 변수 객체에 있으며 <code>b</code> 는 <code>func1</code> 의 EC의 스코프체인에 속한 해당 함수의 변수 객체에 있다. 즉 아래와 같이 구성된다.</p>
+
+<p><img src="/images/javascript/sc/sc1.png" width="600px"></p>
+
+<p>EC가 생성되면서 쌓이게 되고 EC안에 스코프체인을 참조하는  <code>[[Scopes]]</code> 를 갖게 된다. 해당 프로퍼티는 연결리스트 형식으로 현재 스코프부터 상위 스코프를 참조하게 되는데, 이는 <strong>변수식별(Identifier Resolution)</strong>을 할 때 사용한다. GEC의 GO부터 각 함수의 AO를 보면 알 수 있듯이 렉시컬 스코핑으로 스코프가 구성됨을 알 수 있다.</p>
+
+<p>결론적으로 엔진이 변수를 찾는(look-up) 과정은 스코프체인을 통해 이루어지며 이는 함수가 어떻게 호출되던 <strong>오직 선언에만 의존한다는 것을 알 수 있다.</strong></p>
+
+<h2 id="클로저-closure">클로저(Closure)</h2>
+
+<p>스코프체인에 대해 이해하면 스코프체인의 특성을 활용한 클로저라는 특성을 함수에 활용할 수 있는데 이는 자바스크립트에서 굉장히 중요한 개념으로 &ldquo;You Don&rsquo;t Know JS&rdquo; 에서는 다음과 같이 언급한다.</p>
+
+<blockquote>
+<p>*What I didn&rsquo;t know back then, what took me years to understand, and what I hope to impart to you presently, is this secret: <strong>closure is all around you in JavaScript, you just have to recognize and embrace it.</strong>*</p>
+</blockquote>
+
+<p>또한 개념 자체를 이해하는 것은 쉽지만 여러가지 부분에 활용되는 것이 매우 어렵기 때문에 완벽히 이해하고 그 활용을 익숙하게 해야 한다. 그럼 먼저 개념에 대해 이해하기 위해 아래와 같은 함수를 보자.</p>
+
+<pre><code class="language-javascript">function func() {
+  var a = 1;
+  function inner() {
+    console.log(a);
+  }
+  return inner;
+}
+
+var outer = func();
+outer(); // 1
+</code></pre>
+
+<p>다음 예시에서 <code>inner</code> 의 스코프체인을 보게 되면</p>
+
+<pre><code>inner의 활성객체 → func의 활성객체 → 전역객체 (스코프체인)
+      ↑
+    변수객체
+</code></pre>
+
+<p>위와 같은 형태로 구성될 것이며 <code>outer</code> 가 <code>inner</code> 를 리턴받아 실행되고 있다. <code>outer()</code> 는 <code>func()</code> 의 실행이 끝났음에도 불구하고 변수 <code>a</code> 를 참조하여 1을 출력하는데 바로 이러한 특성이 클로저의 개념이다. 그 이유는 <code>inner()</code> 가 가진 스코프체인이 가비지 컬렉터에 의해 제거되지 않고 남아있기 때문이다. 더글라스 크락포드는 클로저에 대해 다음과 같이 얘기한다.</p>
+
+<blockquote>
+<p><em>An inner function always has access to the vars and parameters of its outer function, even after the outer function has returned…</em></p>
+</blockquote>
+
+<p>즉, <code>func()</code> 가 종료된다 하더라도 <code>func()</code> 의 렉시컬 스코프에 있는 변수들과 매개변수들을 <code>func()</code> 의 내부함수인 <code>inner()</code> 가 참조할 수 있다는 말이다. 따라서 <code>outer()</code> 는 <code>inner()</code> 의 스코프체인을 사용하여 변수 <code>a</code> 를 콘솔에 출력하게 된다.</p>
+
+<h2 id="클로저의-활용">클로저의 활용</h2>
+
+<h3 id="반복문과-클로저">반복문과 클로저</h3>
+
+<p>반복문과 클로저를 같이쓰게 되면 굉장히 헷갈리는데 그 이유는 클로저의 특성 때문에 의도한 대로 동작하지 않기 때문이다.</p>
+
+<pre><code class="language-javascript">for(var i=1; i&lt;=5; i++){
+    setTimeout(function(){
+        console.log(i);
+    }, i*1000);
+}
+
+// 6 6 6 6 6
+</code></pre>
+
+<p>위 코드의 의도는 1초 간격으로 1~5를 출력하는 예제이겠지만 <code>setTimeout()</code> 의 내부 <strong>익명함수(Anonymous Function)</strong>가사용하가 변수 <code>i</code> 가 해당 함수의 스코프 체인이 참조하는 전역변수 <code>i</code> 이기 때문에 반복문이 모두 끝났을 때 6이 들어가게 되고 결국 6을 1초 간격으로 5번 출력하게 되는 불상사가 일어난다. 이를 해결하기 위해선 global scope가 아닌 새로운 스코프를 생성해서 반복문을 도는 <code>i</code> 의 값들을 유지해야 한다.</p>
+
+<pre><code class="language-javascript">for(var i=1; i&lt;=5; i++){
+    (function(j){
+        setTimeout(function(){
+            console.log(j);
+        }, j*1000);
+    })(i);
+}
+
+// 1 2 3 4 5
+</code></pre>
+
+<p><strong>IIFE(Immediately Invoked Function Expression, 즉시실행함수 표현식)</strong>를 사용하여 <code>i</code> 를 인자로 받는 함수를 구성한다면 새로운 렉시컬 스코프를 만들 수 있고 <code>setTimeout()</code> 은 각 반복마다의 <code>i</code> 값을 가지고 있는 변수 <code>j</code> 를 참조하여 원래 의도한대로 결과과 도출된다.</p>
+
+<h3 id="block-scoping">Block Scoping</h3>
+
+<p>ES6(ES2015)에서 도입된 키워드로 <code>let</code> 이 있는데 이는 <code>var</code> 와는 다르게 block scoping을 가지는데 여기서 block의 의미는 <code>for</code>, <code>if</code>, <code>switch</code> 등에서 사용대는 <code>{}</code> 의 내부 영역을 의미한다. <code>let</code> 을 사용함으로써 기존에 함수를 스코프로 가지는 특성과 달라지기 때문에 위의 예시보다 클로저를 더 간단하게 사용할 수 있다.</p>
+
+<pre><code class="language-javascript">for(var i=1; i&lt;=5; i++){
+    let j = i;
+    setTimeout(function(){
+        console.log(j);
+    }, j*1000);
+}
+</code></pre>
+
+<p><code>let</code> 이 <code>for</code> 문 안에서의 block scoping을 가지기 때문에 <code>j</code> 의 값은 반복과정에서 변하지 않고 각 반복에서의 <code>i</code> 값을 지니게 되는 방식이다. 이것 말고도 <code>let</code> 의 특징 중 반복할 때마다 그 이전 값으로 초기화되는 특징이 있기 때문에 이를 활용하여 더 간단하게 만들 수도 있다.</p>
+
+<pre><code class="language-javascript">for(let i=1; i&lt;=5; i++){
+    setTimeout(function(){
+        console.log(i);
+    }, i*1000);
+}
+</code></pre>
+
+<h3 id="특정-함수에-사용자가-정의한-객체의-메소드-연결하기">특정 함수에 사용자가 정의한 객체의 메소드 연결하기</h3>
+
+<pre><code class="language-javascript">function HelloFunc(func) {
+  this.greeting = 'hello';
+}
+
+HelloFunc.prototype.call = function(func) {
+  func ? func(this.greeting) : this.func(this.greeting);
+};
+
+var userFunc = function(greeting) {
+  console.log(greeting);
+};
+
+var objHello = new HelloFunc();
+objHello.func = userFunc;
+objHello.call(); // hello
+</code></pre>
+
+<p>위 코드에서 <code>objHello</code> 는 생성자 함수인 <code>HelloFunc()</code> 에 의해 생성된 객체이며 해당 객체의 <code>func</code> 프로퍼티에 함수 <code>userFunc</code> 이 할당되었다. <code>objHello.call()</code> 이 실행되면 함수의 동작방식에 따라 <code>userFunc()</code> 을 호출하게 되는 구조이다. 하지만 여기서의 한계점은 <code>userFunc</code> 이 인자를 한개밖에 받지 않는다는 것이다. 이 때 인자를 더 받고 싶은데 활용할 수 있는 것이 바로 클로저이다.</p>
+
+<pre><code class="language-javascript">function saySomething(obj, methodName, name) {
+  return (function(greeting) {
+    return obj[methodName](greeting,name);
+  });
+}
+
+function newObj(obj, name) {
+  obj.func = saySomething(this, 'who', name);
+  return obj;
+}
+
+newObj.prototype.who = function(greeting, name) {
+  console.log(greeting + ' ' + (name || 'everyone'));
+};
+
+var obj = new newObj(objHello, 'haram');
+obj.call(); // hello haram
+</code></pre>
+
+<p><code>name</code> 이라는 변수를 더 넘기고 싶은 상황에서 새로운 생성자 함수인 <code>newObj()</code> 를 만들어 <code>obj.func</code> 에 클로저를 할당하면 <code>obj.call()</code> 을 호출할 때 클로저가 객체의 <code>who</code> 라는 메소드를 호출하게 되며 이로써 <code>name</code> 이라는 변수까지 사용할 수 있게 된다.</p>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="https://github.com/getify/You-Dont-Know-JS/blob/master/scope %26 closures/ch2.md">https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch2.md</a></li>
+<li><a href="https://github.com/getify/You-Dont-Know-JS/blob/master/scope %26 closures/ch5.md">https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/ch5.md</a></li>
+<li><a href="http://davidshariff.com/blog/javascript-scope-chain-and-closures/">http://davidshariff.com/blog/javascript-scope-chain-and-closures/</a></li>
+<li><a href="http://www.yes24.com/Product/Goods/11781589?scode=032&amp;OzSrank=1">인사이드 자바스크립트</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsscope-chain%2f&t=%5bJavascript%5d%20Scope%20Chain"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsscope-chain%2f&text=%5bJavascript%5d%20Scope%20Chain&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsscope-chain%2f&title=%5bJavascript%5d%20Scope%20Chain"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsscope-chain%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 10일 11시 11분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/javascript">#Javascript</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/javascript">#Javascript</a>
+        
+        <a href="http://localhost:1313/tags/scope-chain">#Scope Chain</a>
+        
+        <a href="http://localhost:1313/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8">#자바스크립트</a>
+        
+        <a href="http://localhost:1313/tags/%EC%8A%A4%EC%BD%94%ED%94%84-%EC%B2%B4%EC%9D%B8">#스코프 체인</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsexecution-context/" rel="prev">
+          <span>[Javascript] Execution Context</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsinheritance/" rel="next">
+          <span>[Javascript] Inheritance</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

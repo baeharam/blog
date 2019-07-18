@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scope Chain on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/scope-chain/</link>
+    <description>Recent content in Scope Chain on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Wed, 10 Jul 2019 11:11:26 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/scope-chain/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Scope Chain</title>
+      <link>http://localhost:1313/posts/javascript/jsscope-chain/</link>
+      <pubDate>Wed, 10 Jul 2019 11:11:26 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsscope-chain/</guid>
+      <description>Lexical Scoping 자바스크립트의 컴파일러는 토큰화(Tokenizing)와 렉싱(Lexing)을 처음에 하는데 이는 코드를 토큰 단위로 분리하여 의미를 매핑시키는 단계이다. Lex-time 이란 토큰에 의미를 부여하는 렉싱 과정을 말하며 이 때 자바스크립트의 스코핑 개념인 렉시컬 스코프가 형성된다.
+Lexical scoping은 기존 함수 호출에 따른 dynamic scoping과는 반대되는 개념으로 함수를 선언할 때(Write time) 정의되는 스코핑 형태를 말한다. 말 그대로 함수가 어디에 적혀있는가에 따라서 스코프가 구성되는 방식이므로 lex-time과 연관이 되는 것이다. 따라서, 스코프 체인을 이해하기 위해선 lexical scoping에 대한 이해가 필수적이며 이 개념을 활용하여 구성되게 된다.</description>
+    </item>
+    
+  </channel>
+</rss>

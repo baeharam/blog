@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>자바스크립트 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8/</link>
+    <description>Recent content in 자바스크립트 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Wed, 10 Jul 2019 15:39:39 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Inheritance</title>
+      <link>http://localhost:1313/posts/javascript/jsinheritance/</link>
+      <pubDate>Wed, 10 Jul 2019 15:39:39 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsinheritance/</guid>
+      <description>자바스크립트는 클래스 기반의 언어가 아닌 프로토타입 기반의 언어로 클래스 기반 언어에서의 상속을 구현하기 위해선 프로토타입의 특성을 활용해야 한다. 이를 사용해서 프로토타입 기반의 상속과 클래스 기반의 상속을 구현해낼 수 있다.
+프로토타입 기반의 상속 공통 메소드 생성자 함수를 통해서 객체를 생성할 수 있는데, 이렇게 생성해낸 객체가 공통의 메소드를 가지게 하기 위해선 어떻게 해야할까? 직관적인 방법으로 생성자 함수 내에 메소드를 정의하면 그로 인해 생성되는 객체는 당연히 해당 메소드를 공통으로 가지게 된다. 하지만 이는 불필요하게 중복되는 영역을 메모리에 올려놓는 형태이므로 프로토타입을 사용해야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Scope Chain</title>
+      <link>http://localhost:1313/posts/javascript/jsscope-chain/</link>
+      <pubDate>Wed, 10 Jul 2019 11:11:26 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsscope-chain/</guid>
+      <description>Lexical Scoping 자바스크립트의 컴파일러는 토큰화(Tokenizing)와 렉싱(Lexing)을 처음에 하는데 이는 코드를 토큰 단위로 분리하여 의미를 매핑시키는 단계이다. Lex-time 이란 토큰에 의미를 부여하는 렉싱 과정을 말하며 이 때 자바스크립트의 스코핑 개념인 렉시컬 스코프가 형성된다.
+Lexical scoping은 기존 함수 호출에 따른 dynamic scoping과는 반대되는 개념으로 함수를 선언할 때(Write time) 정의되는 스코핑 형태를 말한다. 말 그대로 함수가 어디에 적혀있는가에 따라서 스코프가 구성되는 방식이므로 lex-time과 연관이 되는 것이다. 따라서, 스코프 체인을 이해하기 위해선 lexical scoping에 대한 이해가 필수적이며 이 개념을 활용하여 구성되게 된다.</description>
+    </item>
+    
+    <item>
+      <title>[Javascript] Execution Context</title>
+      <link>http://localhost:1313/posts/javascript/jsexecution-context/</link>
+      <pubDate>Wed, 10 Jul 2019 09:27:48 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/jsexecution-context/</guid>
+      <description>정의 ECMAScript 에서 정의하는 EC(Execution Context)는 다음과 같이 표현한다.
+ Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.
+실행 컨텍스트는 실행가능한 코드를 형상화하고 구분하는 추상적인 개념이다.
+ 즉, EC는 자바스크립트 엔진이 코드를 실행할 때 생성되는 하나의 환경(environment)이라고 할 수 있다.
+종류  전역 실행 컨텍스트 (Global Execution Context, GEC)  GEC는 브라우저에서 자바스크립트를 처음 로드할 때 생성되는 EC로 어떠한 함수나 객체에도 속하지 않고 전역공간에 놓인 모든 코드들이 속하는 EC이다.</description>
+    </item>
+    
+  </channel>
+</rss>

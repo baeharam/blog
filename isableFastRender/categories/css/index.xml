@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CSS on 배하람 블로그</title>
+    <link>http://localhost:1313/categories/css/</link>
+    <description>Recent content in CSS on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Wed, 17 Jul 2019 16:37:28 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/css/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[CSS] line-height</title>
+      <link>http://localhost:1313/posts/css/css-line-height/</link>
+      <pubDate>Wed, 17 Jul 2019 16:37:28 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/css/css-line-height/</guid>
+      <description>원래의 목적  The line-height CSS property sets the height of a line box. It&amp;rsquo;s commonly used to set the distance between lines of text. On block-level elements, it specifies the minimum height of line boxes within the element. On non-replaced inline elements, it specifies the height that is used to calculate line box height.
+line-height 는 line box의 높이를 설정하는 CSS의 속성이다. 이는 보통 텍스트의 줄 간격 사이를 정하기 위해 사용된다.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Javascript] Array와 Array.prototype의 메서드  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[Javascript] Array와 Array.prototype의 메서드'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[Javascript] Array와 Array.prototype의 메서드">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-18">
+  
+  <meta property="og:description" content="desribe-your-site '[Javascript] Array와 Array.prototype의 메서드'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="Javascript">
+  
+  <meta property="og:tags" content="Array">
+  
+  <meta property="og:tags" content="Array.prototype">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/">
+      <div class="post-meta">
+        <time>2019년 07월 18일 14시 50분</time>
+        <h1>[Javascript] Array와 Array.prototype의 메서드</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="기존-메서드">기존 메서드</h2>
+
+<ul>
+<li><strong>Array.prototype.slice([begin[, end]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.slice(0,3); // [1,2,3]
+</code></pre>
+
+<p><code>begin</code> 이상 <code>end</code> 미만의 부분 배열 리턴</p>
+
+<ul>
+<li><strong>Array.prototype.splice(start[, deleteCount[, item1[, item2[, &hellip;]]]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+a.slice(2,1,5); // [1,2,5,4]
+</code></pre>
+
+<p><code>start</code> 에서 시작해서 <code>deleteCount</code> 만큼 제거하고 <code>item1</code> 삽입</p>
+
+<h2 id="es6의-새로운-메서드">ES6의 새로운 메서드</h2>
+
+<ul>
+<li><strong>Array.prototype.find(callback[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.find((num) =&gt; num%2 === 0); // 2
+</code></pre>
+
+<p>주어진 조건을 만족하는 <u>첫번째 요소</u>를 반환</p>
+
+<ul>
+<li><strong>Array.prototype.findIndex(callback[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.findIndex((num) =&gt; num%2 === 0); // 1
+</code></pre>
+
+<p>주어진 조건을 만족하는 <u>첫번째 요소의 인덱스</u>를 반환</p>
+
+<ul>
+<li><strong>Array.prototype.some(callback[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.some((num) =&gt; num%2 === 0); // b = true
+</code></pre>
+
+<p>인자로 전달한 함수에 맞는 요소가 있을시 <code>true</code> 아니면 <code>false</code></p>
+
+<ul>
+<li><strong>Array.prototype.every(callback[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.every((num) =&gt; num%2 === 0); // b = false
+</code></pre>
+
+<p>이번엔 모든 요소가 함수 조건 만족할시 <code>true</code> 아니면 <code>false</code></p>
+
+<ul>
+<li><strong>Array.prototype.reduce(callback[, initialValue])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.reduce((accumulator,current) =&gt; accumulator+current); // 10
+</code></pre>
+
+<p><code>callback</code> 의 첫번째,두번째 요소는 각각 누산기(accumulator)와 현재 처리할 값을 의미하는데 누산기에 계속해서 함수의 작업이 누적되는 것을 말한다.</p>
+
+<ul>
+<li><strong>Array.prototype.map(callback(currentValue[, index[, array]])[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.map((num) =&gt; num*2); // [2,4,6,8]
+</code></pre>
+
+<p><code>array</code> 에 <code>callback</code> 적용해서 새로운 배열 생성</p>
+
+<ul>
+<li><strong>Array.prototype.fill(value[, start[, end]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.fill(0,2,4); // [1,2,0,0]
+</code></pre>
+
+<p><code>start</code> 이상 <code>end</code> 미만까지 <code>value</code> 로 채움</p>
+
+<ul>
+<li><strong>Array.prototype.copyWithin(target[, start[, end]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+var b = a.copyWithin(1,2,4); // [1,3,4,4]
+</code></pre>
+
+<p><code>target</code> 인덱스에 <code>start</code> 이상 <code>end</code> 미만의 부분배열 요소들을 복사</p>
+
+<ul>
+<li><strong>Array.prototype.forEach(callback[, thisArg])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = [1,2,3,4];
+a.forEach((num) =&gt; console.log(num*2)); // 2,4,6,8
+</code></pre>
+
+<p>반복해서 주어진 함수 실행</p>
+
+<ul>
+<li><strong>Array.from(arrayLike[, mapFn[, thisArg]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = &quot;1234&quot;;
+var b = Array.from(a,(num) =&gt; num*num); // [1,4,9,16]
+</code></pre>
+
+<p>유사배열 객체나 반복가능한 객체인 <code>arrayLike</code> 을 <code>mapFn</code> 적용해서 배열로 변환</p>
+
+<ul>
+<li><strong>Array.of(element0[, element1[, &hellip;[, elementN]]])</strong></li>
+</ul>
+
+<pre><code class="language-javascript">var a = Array.of(7); // [7]
+var b = Array.of(1,2,3,4); // [1,2,3,4]
+</code></pre>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="https://www.hackerearth.com/practice/notes/hemanth12/es6-array-methods/">https://www.hackerearth.com/practice/notes/hemanth12/es6-array-methods/</a></li>
+<li><a href="https://gnujoow.github.io/dev/2016/10/14/Dev6-es6-array-helper/">https://gnujoow.github.io/dev/2016/10/14/Dev6-es6-array-helper/</a></li>
+<li><a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array">https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs-methods-of-array-and-array.prototype%2f&t=%5bJavascript%5d%20Array%ec%99%80%20Array.prototype%ec%9d%98%20%eb%a9%94%ec%84%9c%eb%93%9c"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs-methods-of-array-and-array.prototype%2f&text=%5bJavascript%5d%20Array%ec%99%80%20Array.prototype%ec%9d%98%20%eb%a9%94%ec%84%9c%eb%93%9c&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs-methods-of-array-and-array.prototype%2f&title=%5bJavascript%5d%20Array%ec%99%80%20Array.prototype%ec%9d%98%20%eb%a9%94%ec%84%9c%eb%93%9c"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs-methods-of-array-and-array.prototype%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 18일 14시 50분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/javascript">#Javascript</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/javascript">#Javascript</a>
+        
+        <a href="http://localhost:1313/tags/array">#Array</a>
+        
+        <a href="http://localhost:1313/tags/array.prototype">#Array.prototype</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/jquery/jquery-analysis3/" rel="prev">
+          <span>[jQuery] jQuery 1.0 소스코드 분석 (3)</span>
+        </a>
+      </li>
+      
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

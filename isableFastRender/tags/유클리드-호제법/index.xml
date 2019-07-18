@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>유클리드 호제법 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C-%ED%98%B8%EC%A0%9C%EB%B2%95/</link>
+    <description>Recent content in 유클리드 호제법 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Mon, 08 Jul 2019 17:35:22 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%EC%9C%A0%ED%81%B4%EB%A6%AC%EB%93%9C-%ED%98%B8%EC%A0%9C%EB%B2%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[알고리즘] 확장 유클리드 알고리즘</title>
+      <link>http://localhost:1313/posts/algorithm/extended-euclidean/</link>
+      <pubDate>Mon, 08 Jul 2019 17:35:22 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/extended-euclidean/</guid>
+      <description>유클리드 호제법(Euclidean algorithm) 정의 유클리드 호제법(= 유클리드 알고리즘)은 두 정수 사이의 최대공약수를 보다 효과적으로 구하는 방법으로 두 정수 $a,b$ 가 존재할 때 다음 식을 만족하는 방법론을 일컫는 말이다. $$ GCD(A,B) = GCD(B,r) $$ 이 때 $A\gt B$ 가 성립하며 $A\equiv r\ (mod\ B)$ 를 조건으로 한다.
+증명 두 정수 $A,B(A \gt B)$ 의 최대공약수(GCD)를 $G$ 라고 하자. $G$ 는 공약수이므로 두 서로소 $a,b$ 에 대해 다음 식이 성립한다. $$ A=aG, B=bG $$ $A$ 를 $B$ 로 나눈 나머지를 $r$ , 몫을 $q$ 라고 하면 $A=qB+r\ (0\le r \lt \lvert B \rvert)$ 를 만족한다.</description>
+    </item>
+    
+  </channel>
+</rss>

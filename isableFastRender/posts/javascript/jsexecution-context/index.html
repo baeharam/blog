@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Javascript] Execution Context  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[Javascript] Execution Context'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[Javascript] Execution Context">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-10">
+  
+  <meta property="og:description" content="desribe-your-site '[Javascript] Execution Context'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/javascript/jsexecution-context/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="Javascript">
+  
+  <meta property="og:tags" content="Execution Context">
+  
+  <meta property="og:tags" content="자바스크립트">
+  
+  <meta property="og:tags" content="실행 컨텍스트">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/javascript/jsexecution-context/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/javascript/jsexecution-context/">
+      <div class="post-meta">
+        <time>2019년 07월 10일 09시 27분</time>
+        <h1>[Javascript] Execution Context</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="정의">정의</h2>
+
+<p>ECMAScript 에서 정의하는 EC(Execution Context)는 다음과 같이 표현한다.</p>
+
+<blockquote>
+<p><em>Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.</em></p>
+
+<p><em>실행 컨텍스트는 실행가능한 코드를 형상화하고 구분하는 추상적인 개념이다.</em></p>
+</blockquote>
+
+<p>즉, EC는 자바스크립트 엔진이 코드를 실행할 때 생성되는 하나의 환경(environment)이라고 할 수 있다.</p>
+
+<h2 id="종류">종류</h2>
+
+<ul>
+<li><strong>전역 실행 컨텍스트 (Global Execution Context, GEC)</strong></li>
+</ul>
+
+<p>GEC는 브라우저에서 자바스크립트를 처음 로드할 때 생성되는 EC로 어떠한 함수나 객체에도 속하지 않고 전역공간에 놓인 모든 코드들이 속하는 EC이다. 자바스크립트는 싱글 스레드 기반의 언어이기 때문에 GEC는 1개만이 생긴다. EC가 생성될 때 EC들은 자바스크립트의 논리적 스택구조인 Execution Stack에 쌓이게 되는데 가장 먼저 쌓이는 EC가 바로 GEC이다.</p>
+
+<ul>
+<li><strong>함수 실행 컨텍스트 (Functional Execution Context, FEC)</strong></li>
+</ul>
+
+<p>자바스크립트 엔진은 함수가 실행될 때마다 해당 함수에 맞는 EC를 생성하는데 이를 FEC라고 하며 FEC는 반드시 Execution Stack에서 GEC 이후에 쌓이게 된다.</p>
+
+<ul>
+<li><strong>Eval 함수 실행 컨텍스트 (Eval Function Execution Context)</strong></li>
+</ul>
+
+<p>자바스크립트에선 <code>eval()</code> 함수를 사용하여 문자열 형태로 코드를 실행할 수 있는데 이 또한 EC를 생성함을 알아두자.</p>
+
+<h2 id="execution-context-stack">Execution Context Stack</h2>
+
+<p><img src="/images/javascript/ec/ec1.png" width="400px"></p>
+
+<p>자바스크립트 엔진은 코드를 실행하자마자 GEC를 스택에 푸시하고 함수 호출을 만날 때마다 해당 함수가 만드는 FEC를 스택에 푸시하게 된다. 함수가 종료되면 해당 스택에서 FEC가 제거되며 모든 코드가 실행되고 끝날 경우 엔진이 GEC를 제거하고 마치게 되는 구조이다.</p>
+
+<h2 id="생성되는-과정">생성되는 과정</h2>
+
+<p>자바스크립트 엔진이 EC를 생성하는 과정은 2가지 단계로 이루어진다.</p>
+
+<h3 id="생성단계-creation-phase">생성단계(Creation Phase)</h3>
+
+<p>생성단계에선 엔진이 코드를 컴파일하는 과정으로 함수를 호출하긴 하지만 아직 그 내부의 코드를 스캔만 하지 실행하는 단계가 아니다. 이 때 엔진은 다음과 같은 일을 수행한다.</p>
+
+<ul>
+<li><strong>스코프 체인(Scope Chain, SC)의 생성과 초기화</strong></li>
+</ul>
+
+<p>스코프 체인은 모든 함수가 가지는 속성인 <code>[[Scopes]]</code> 로 참조되는 연결리스트 형태로 현재 EC의 활성객체를 가리키고 있으며 순차적으로 상위 스코프의 활성객체를 가지는 형태이다. 스코프 체인은 변수를 검색하는 메커니즘으로 해당 스코프체인의 처음부터 변수를 검색하며 리스트를 순회하는 방식이다.</p>
+
+<ul>
+<li><strong>활성객체(Activation Object, AO)의 생성</strong></li>
+</ul>
+
+<p>활성객체는 현재 활성화된 EC에 활성객체는 함수가 인자로 전달받는 <code>arguments</code> 객체, 변수, 내부 함수를 가지는 객체로 엔진이 EC를 생성할 때 가장 먼저 생성하는 객체이다. 하지만 보통의 객체와는 다르게 <code>prototype</code> 속성이 없으며 코드로 접근할 수 없다. 해당 활성객체는 변수객체(Variable Object, VO)로 참조되는데 이는 FEC에선 맞지만 GEC에선 활성객체가 존재하지 않고 변수객체가 전역객체(Global Object, GO)를 참조함을 기억하자. (<a href="[https://poiemaweb.com/js-execution-context#21-variable-object-vo--%EB%B3%80%EC%88%98%EA%B0%9D%EC%B2%B4](https://poiemaweb.com/js-execution-context#21-variable-object-vo--변수객체)">참조</a>)</p>
+
+<ul>
+<li><code>this</code> <strong>객체 바인딩</strong></li>
+</ul>
+
+<p>스코프 체인이 초기화 된 후에 엔진은 <code>this</code> 객체를 바인딩시킨다.</p>
+
+<h3 id="실행단계-execution-phase">실행단계(Execution Phase)</h3>
+
+<p>생성단계를 거치고 실행에 필요한 정보들이 만들어진 상태에서 실행단계에 오면 실제로 변수에 값이 할당되게 된다.</p>
+
+<pre><code class="language-javascript">function func(pass) {
+  var a = 1;
+  var b = function innerExpression(){}
+  function innerDeclaration(){}
+}
+func(1);
+</code></pre>
+
+<p>위와 같은 코드가 생성단계를 지나면 <code>func</code> 의 EC는 아래와 같이 된다.</p>
+
+<pre><code>funcExectuionContext = {
+	Scope Chain,
+	Activation Object = {
+		arguments = {
+			0: 1
+			length: 1
+		},
+		pass: 1,
+		a: undefined,
+		b: undefined,
+		innerDeclaration: reference to innerDeclaration
+	}
+}
+</code></pre>
+
+<p>여기서 주목할 점은 <code>arguments</code> 객체가 유사배열객체(Array-like Object)라는 것, 함수 선언문(Function Declaration)이 초기화까지 된다는 것이다. 유사배열객체란 <code>length</code> 값을 가지는 객체로 배열과 같은 구조로 되어있지만 배열의 메소드를 사용할 수 없는 객체를 말한다. 또한 함수 선언문이 초기화까지 되는 것은 곧 나올 호이스팅(Hoisting)과 연관이 있다. 이제 실행단계를 거치게 되면 아래와 같이 된다.</p>
+
+<pre><code>funcExectuionContext = {
+	Scope Chain,
+	Activation Object = {
+		arguments = {
+			0: 1
+			length: 1
+		},
+		pass: 1,
+		a: 1,
+		b: reference to innerExpression,
+		innerDeclaration: reference to innerDeclaration
+	}
+}
+</code></pre>
+
+<p>모든 변수에 대해 할당과정도 끝남을 알 수 있다.</p>
+
+<h2 id="호이스팅-hoisting">호이스팅(Hoisting)</h2>
+
+<p>호이스팅은 &ldquo;끌어올리다&rdquo; 라는 뜻으로 특정 변수나 함수를 선언전에도 사용할 수 있게끔 되는 현상을 말한다. 이는 EC의 생성단계를 보면 알 수 있는데 변수 호이스팅과 함수 호이스팅이 있다.</p>
+
+<h3 id="변수-호이스팅">변수 호이스팅</h3>
+
+<p>변수 호이스팅은 변수를 선언하기 전에 사용할 수 있는 현상으로 <a href="https://poiemaweb.com/js-execution-context#3122-변수-x의-선언-처리">변수의 선언처리</a> 에 의해 초기화 과정에서 메모리에 변수를 등록할 때 <code>undefined</code> 로 값이 할당되기 때문에 선언전에 사용할 수 있게 되는 것이다.</p>
+
+<h3 id="함수-호이스팅">함수 호이스팅</h3>
+
+<p>함수 호이스팅이 적용되는 함수의 정의는 함수 표현식(Function Expression)이 아닌 <strong>함수 선언문</strong>으로 변수객체가 가리키는 활성객체에 함수객체의 값이 프로퍼티로 할당된다. 이를통해 함수 선언문도 그 선언전에 사용할 수 있게 되는 것이다.</p>
+
+<p>따라서 위의 호이스팅들이 모두 적용되어 아래와 같은 코드가 가능하게 된다.</p>
+
+<pre><code class="language-javascript">console.log(a); // undefined
+func(2); // 2
+
+var a;
+function func(i) {
+  console.log(i);
+}
+</code></pre>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="https://poiemaweb.com/js-execution-context">https://poiemaweb.com/js-execution-context</a></li>
+<li><a href="https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0">https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0</a></li>
+<li><a href="http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/">http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/</a></li>
+<li><a href="https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c">https://hackernoon.com/execution-context-in-javascript-319dd72e8e2c</a></li>
+<li><a href="https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262, 3rd edition, December 1999.pdf">https://www.ecma-international.org/publications/files/ECMA-ST-ARCH/ECMA-262,%203rd%20edition,%20December%201999.pdf</a></li>
+<li><a href="http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/">http://dmitrysoshnikov.com/ecmascript/chapter-1-execution-contexts/</a></li>
+<li><a href="http://jibbering.com/faq/notes/closures/#clExCon">http://jibbering.com/faq/notes/closures/#clExCon</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsexecution-context%2f&t=%5bJavascript%5d%20Execution%20Context"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsexecution-context%2f&text=%5bJavascript%5d%20Execution%20Context&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsexecution-context%2f&title=%5bJavascript%5d%20Execution%20Context"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjsexecution-context%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 10일 09시 27분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/javascript">#Javascript</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/javascript">#Javascript</a>
+        
+        <a href="http://localhost:1313/tags/execution-context">#Execution Context</a>
+        
+        <a href="http://localhost:1313/tags/%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8">#자바스크립트</a>
+        
+        <a href="http://localhost:1313/tags/%EC%8B%A4%ED%96%89-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8">#실행 컨텍스트</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/algorithm/lazy-propagation/" rel="prev">
+          <span>[알고리즘] Lazy Propagation</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsscope-chain/" rel="next">
+          <span>[Javascript] Scope Chain</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

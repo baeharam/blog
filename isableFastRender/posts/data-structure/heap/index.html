@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[자료구조] 힙(Heap)  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[자료구조] 힙(Heap)'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[자료구조] 힙(Heap)">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-12">
+  
+  <meta property="og:description" content="desribe-your-site '[자료구조] 힙(Heap)'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/data-structure/heap/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="자료구조">
+  
+  <meta property="og:tags" content="힙">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/data-structure/heap/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/data-structure/heap/">
+      <div class="post-meta">
+        <time>2019년 07월 12일 10시 48분</time>
+        <h1>[자료구조] 힙(Heap)</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="힙의-정의">힙의 정의</h2>
+
+<p>힙(Heap)이란 <strong>완전 이진 트리</strong>의 한 종류로 <strong>최댓값이나 최솟값을 빠르게 찾아내기 위해 고안된 자료구조</strong>이다. 힙의 각 노드는 키(Key)라는 값으로 구성되며 부모노드와 자식노드와의 관계는 다음이 성립한다.</p>
+
+<ul>
+<li>A가 부모노드, B가 자식노드일 경우 A의 키 값과 B의 키 값에는 대소관계가 주어진다.</li>
+</ul>
+
+<p>힙은 자식 노드에 따라 여러가지 종류로 구분되지만 대부분 자식 노드 2개를 갖는 이진 힙(Binary Heap)을 사용하며 우선순위 큐(Priority Queue)의 구현체로 이용되거나 힙 정렬(Heap Sort)에 이용된다. 우선순위 큐가 사용되는 알고리즘으로는 최단경로를 찾는 다익스트라(Dijkstra) 알고리즘이 존재한다.</p>
+
+<p>대소관계에는 크거나 작은 경우가 있으므로 <strong>최대 힙(Max Heap)</strong>과 <strong>최소 힙(Min Heap)</strong>으로 나뉘어진다. 최대 힙은 루트인 가장 위쪽 노드에 최대의 키 값이 있는 힙이며 최소 힙은 최소의 키 값이 있는 힙니다. 여기서 키 값은 단순한 숫자(Integer)가 될 수도 있지만 정의하는 것에 따라 복합적인 값이 될 수도 있다. 그러나 본문에서는 정확한 이해를 위해 숫자를 키 값으로 사용하기로 한다.</p>
+
+<h2 id="힙의-구현">힙의 구현</h2>
+
+<p>힙을 구현할 때는 구조체를 이용해 노드를 선언하고 배열을 통해서 구현하는 것이 일반적이다. 배열의 최대 크기를 지정하고 왼쪽 자식노드는 <code>*2</code>로 오른쪽 자식노드는 <code>*2+1</code>을 통해 나타낸다. 따라서, 부모노드를 나타낼 때는 <code>/2</code>를 하게 된다. 이 점만 유의하면 힙의 구현은 직관적이라고 할 수 있다. 힙의 기능은 상당히 많지만 여기선 보다 명확한 이해를 위해 2가지 기능만 보기로 한다. 삽입과 삭제 연산이 존재하며 최대 힙을 통해 동작 원리를 살펴보기로  하자.</p>
+
+<h3 id="힙의-삽입">힙의 삽입</h3>
+
+<p>힙의 삽입은 삭제 연산보다 간단한데, 다음과 같은 단계로 이루어진다.</p>
+
+<ul>
+<li>가장 마지막에 키 값과 함께 노드를 삽입한다.</li>
+<li>부모노드와 비교해서 새로 삽입한 노드가 더 큰 값이라면 바꾸고 아니면 끝낸다.</li>
+<li>2번 과정을 루트노드까지 계속한다.</li>
+</ul>
+
+<p>예를들어, <code>10,2,5,12,17</code>을 살펴보자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/35518072/52601848-a5ef9680-2ea3-11e9-9137-26319e2b98c8.png" width="500px" class="center"></p>
+
+<p>먼저 2와 5가 삽입될 때는 최대 힙이기 때문에 아무 일도 일어나지 않는다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/35518072/52601983-231b0b80-2ea4-11e9-97ec-f14ef32b712c.png" width="500px" class="center"></p>
+
+<p>그러나 12가 들어가게 되면 위와 같이 12가 2와 10보다 크기 때문에 루트노드가 된다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/35518072/52602150-e69bdf80-2ea4-11e9-9636-91bd3e113fdf.png" width="500px" class="center"></p>
+
+<p>17도 12때와 마찬가지로 10보다 크고 12보다 크기 때문에 루트노드가 된다. 이제 위 과정을 코드로 살펴보자. 코드로 구현할 때는 보통 루트노드의 인덱스를 1로 잡는 것을 유념하자.</p>
+
+<pre><code class="language-c++">#include &lt;cstdio&gt;
+
+#define MAX_SIZE 200
+
+struct DSheap{
+    int heap[MAX_SIZE];
+    int size;
+
+    DSheap(){ size = 0; }
+
+    void push(int element)
+    {
+        // 힙이 다 찬 경우
+        if(size==MAX_SIZE-1){
+            puts(&quot;HEAP IS FULL!&quot;);
+            return;
+        }
+        // 마지막에 삽입해야 하니 크기를 미리 증가시킨다.
+        int index = ++size;
+
+        // 1) 루트노드의 인덱스가 1이므로 1보다 커야 한다.
+        // 2) 삽입하려는 값이 부모노드보다 큰지 확인한다.
+        //    부모노드보다 크다면 바꾸는데 부모노드를 현재노드에 넣는다.
+        //    이렇게 할 수 있는 이유는 element를 유지하기 때문.
+        while(index&gt;1 &amp;&amp; (element&gt;heap[index/2])){
+            heap[index] = heap[index/2];
+            index /= 2;
+        }
+        // 최대 힙을 만족시키는 위치를 찾은 경우이므로 그곳에 element를 삽입한다.
+        heap[index] = element;
+        printf(&quot;PUSH %d\n&quot;,element);
+    }
+};
+</code></pre>
+
+<p><code>DSheap</code>이란 구조체를 선언한 후 <code>heap</code>이라는 배열로 힙을 구현하고 있다.</p>
+
+<h3 id="힙의-삭제">힙의 삭제</h3>
+
+<p>힙의 삭제는 삽입보다는 살짝 복잡하긴 하지만 그래도 충분히 직관적이다. 삭제의 과정은 다음과 같이 이루어진다.</p>
+
+<ul>
+<li>루트노드를 삭제한다.</li>
+<li>마지막 노드를 루트노드로 바꾼다.</li>
+<li>다시 최대 힙을 만족시키는 과정을 진행한다.
+
+<ul>
+<li>왼쪽 자식노드와 오른쪽 자식노드 중 더 큰 값을 구한다.</li>
+<li>그 값과 현재 노드를 비교해서 연산을 수행한다.</li>
+</ul></li>
+</ul>
+
+<p>예제로는 삽입을 이해할 때 썼던 마지막 구조를 이용하자.</p>
+
+<p><img src="https://user-images.githubusercontent.com/35518072/52602692-f3213780-2ea6-11e9-87af-d0535911c1e8.png" width="500px" class="center"></p>
+
+<p>먼저 루트노드인 17을 삭제한 뒤, 마지막 노드인 10을 루트로 바꾼다. 이후 자식노드 중에 12가 큰 값이므로 10과 12를 비교하는데 12가 더 크기 때문에 바꾼다. 이 과정을 계속해야 하는데, 10이 2보다 크기 때문에 여기서 멈추게 되고 삭제연산이 종료된다.</p>
+
+<pre><code class="language-c++">int pop()
+{
+    // 힙이 비어있을 경우 삭제불가.
+    if(size==0){
+        puts(&quot;HEAP IS EMPTY!&quot;);
+        return -1;
+    }
+    // 삭제하는 값은 루트노드
+    int result = heap[1];
+    // 마지막 노드를 가져오고 크기 줄인다.
+    int last = heap[size--];
+    
+    // 루트노드부터 봐야 하므로
+    // parent와 child값을 초기화
+    int parent = 1, child = 2;
+
+    // child가 마지막 노드일 때까지 계속.
+    while(child &lt;= size){
+        // child가 마지막 노드가 아니고 오른쪽 자식 노드가 더 크다면
+        // child 값 증가
+        if(child&lt;size &amp;&amp; heap[child]&lt;heap[child+1]){
+            child++;
+        }
+        // 현재 노드가 child노드보다 크거나 같으면 중단
+        if(last&gt;=heap[child]){
+            break;
+        }
+        // 현재 노드가 child노드보다 작다면 child를 위로 올리고
+        // parent와 child를 갱신
+        heap[parent] = heap[child];
+        parent = child;
+        child *= 2;
+    }
+
+    // 1) 중간에 중단하게 되면 child노드보다 크거나 같은 경우이므로 parent.
+    // 2) 마지막 노드까지 조사한 경우여도 parent가 child가 되므로 parent.
+    // 어떤 경우에도 parent에 넣어야 함.
+    heap[parent] = last;
+    printf(&quot;POP %d\n&quot;,result);
+    return result;
+}
+</code></pre>
+
+<h2 id="힙의-시간복잡도">힙의 시간복잡도</h2>
+
+<p>삽입과 삭제 모두 힙의 높이만큼, 즉 완전 이진 트리의 높이만큼 연산하는 경우가 최악의 경우(Worst Case)이므로, 힙의 높이가 무엇인지 안다면, 그 시간복잡도를 알 수 있다. 증명은 <a href="http://www.cs.gettysburg.edu/~ilinkin/courses/Fall-2012/cs216/notes/bintree.pdf">여기</a>를 참조했다.</p>
+
+<p>완전 이진 트리의 모든 노드가 존재한다고 했을 때 높이를 $h$라고 하고 첫번째 레벨을 0이라고 하자. 이 때, 노드의 개수를 $n$이라고 하면 다음이 성립한다.
+$$
+1+2^1+2^2+2^3&hellip;+2^h=n
+$$
+등비수열의 합공식에 따라서 $1+2^1+2^2+2^3+&hellip;2^h=2^{h+1}-1$임을 알 수 있고 $2^{h+1}-1=n$이라는 등식을 얻어낼 수 있다. 1을 우항으로 옮기고 양변에 로그를 취하고 계산해보면 아래와 같다.
+$$
+log_2{2^{h+1}}=log_2{(n+1)}<br />
+h+1=log_2{(n+1)}<br />
+h=log_2{(n+1)}-1
+$$
+결론적으로, 힙의 높이만큼 삽입과 삭제 연산이 일어나기 때문에 시간복잡도는 $O(h)=O(log_2{(n+1)}-1)=O(log_2{n})$이라고 할 수 있다.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://gmlwjd9405.github.io/2018/05/10/data-structure-heap.html">자료구조 힙(heap)이란</a></li>
+<li><a href="https://ko.wikipedia.org/wiki/%ED%9E%99_(%EC%9E%90%EB%A3%8C_%EA%B5%AC%EC%A1%B0)">위키백과 - 힙</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Heap_(data_structure)">Wikipedia - Heap</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fdata-structure%2fheap%2f&t=%5b%ec%9e%90%eb%a3%8c%ea%b5%ac%ec%a1%b0%5d%20%ed%9e%99%28Heap%29"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdata-structure%2fheap%2f&text=%5b%ec%9e%90%eb%a3%8c%ea%b5%ac%ec%a1%b0%5d%20%ed%9e%99%28Heap%29&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdata-structure%2fheap%2f&title=%5b%ec%9e%90%eb%a3%8c%ea%b5%ac%ec%a1%b0%5d%20%ed%9e%99%28Heap%29"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdata-structure%2fheap%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 12일 10시 48분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">#자료구조</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/%EC%9E%90%EB%A3%8C%EA%B5%AC%EC%A1%B0">#자료구조</a>
+        
+        <a href="http://localhost:1313/tags/%ED%9E%99">#힙</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/" rel="prev">
+          <span>[Javascript] 객체지향 프로그래밍의 기본</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/data-structure/hash-table/" rel="next">
+          <span>[자료구조] 해시 테이블(Hash Table)</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

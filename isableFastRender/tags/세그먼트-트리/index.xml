@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>세그먼트 트리 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%8A%B8-%ED%8A%B8%EB%A6%AC/</link>
+    <description>Recent content in 세그먼트 트리 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Tue, 09 Jul 2019 12:10:49 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%8A%B8-%ED%8A%B8%EB%A6%AC/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[알고리즘] Lazy Propagation</title>
+      <link>http://localhost:1313/posts/algorithm/lazy-propagation/</link>
+      <pubDate>Tue, 09 Jul 2019 12:10:49 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/lazy-propagation/</guid>
+      <description>개념 기존 세그먼트 트리에서 하나의 리프노드를 업데이트 할 때 $O(lgN)$ 이 걸리기 때문에 구간 업데이트에 관련된 문제가 나올 경우 최대 $O(NlgN)$ 이 걸려서 시간초과를 받게 된다. 따라서 이를 위해 다른 알고리즘이 필요한데 바로 이러한 구간 업데이트를 단 $O(lgN)$ 만에 수행할 수 있는 테크닉이 lazy propagation이다. 이름의 뜻 그대로 게으르게(lazy) 전파(propagation) 한다는 것으로 특정 업데이트 구간에 포함되는 노드들에게 나중에 전파시킬 값을 저장해 둠으로써 다음 업데이트나 쿼리를 할 때 마다 자식노드들 한테만 전파해주면 되게 된다.</description>
+    </item>
+    
+  </channel>
+</rss>

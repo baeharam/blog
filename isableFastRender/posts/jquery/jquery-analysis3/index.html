@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[jQuery] jQuery 1.0 소스코드 분석 (3)  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[jQuery] jQuery 1.0 소스코드 분석 (3)'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[jQuery] jQuery 1.0 소스코드 분석 (3)">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-17">
+  
+  <meta property="og:description" content="desribe-your-site '[jQuery] jQuery 1.0 소스코드 분석 (3)'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/jquery/jquery-analysis3/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="jQuery">
+  
+  <meta property="og:tags" content="1.0">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/jquery/jquery-analysis3/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/jquery/jquery-analysis3/">
+      <div class="post-meta">
+        <time>2019년 07월 17일 18시 44분</time>
+        <h1>[jQuery] jQuery 1.0 소스코드 분석 (3)</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="jquery-event-add">jQuery.event.add()</h2>
+
+<pre><code class="language-javascript">function(element, type, handler) {
+			...
+			// Make sure that the function being executed has a unique ID
+			if ( !handler.guid )
+				handler.guid = this.guid++;
+  		...
+}
+</code></pre>
+
+<ul>
+<li><code>element</code> : id에 해당하는 DOM 객체</li>
+<li><code>type</code> : &lsquo;click&rsquo; 이벤트 타입</li>
+<li><code>handler</code> : 해당 이벤트에 대한 콜백 함수</li>
+</ul>
+
+<p>위의 인자로 넘어온 상황에서 콜백함수인 <code>handler</code> 의 프로퍼티에 <code>guid</code> 가 없다면 동적으로 만들고 <code>this.guid</code> 로 초기화한다. 여기서 <code>this</code> 는 <code>jQuery.event</code> 객체이며 초기값으로 <code>guid: 1</code> 을 갖는다.</p>
+
+<pre><code class="language-javascript">// Init the element's event structure
+if (!element.events)
+  element.events = {};
+</code></pre>
+
+<p>DOM 객체에 <code>events</code> 프로퍼티가 없다면 동적으로 생성한다음 객체 리터럴로 초기화한다. 이는 DOM 객체의 <code>events</code> 객체를 통해 이벤트들을 관리하기 위함이다.</p>
+
+<pre><code class="language-javascript">// Get the current list of functions bound to this event
+var handlers = element.events[type];
+</code></pre>
+
+<p><code>events</code> 객체의 프로퍼티 중 <code>'click'</code> 에 해당하는 객체가 존재하는지 확인하기 위해 변수 <code>handlers</code> 에 할당한다.</p>
+
+<pre><code class="language-javascript">// If it hasn't been initialized yet
+if (!handlers) {
+  // Init the event handler queue
+  handlers = element.events[type] = {};
+
+  // Remember an existing handler, if it's already there
+  if (element[&quot;on&quot; + type])
+    handlers[0] = element[&quot;on&quot; + type];
+}
+</code></pre>
+
+<p>만약 정의되어 있지 않다면 객체 리터럴로 초기화한다. 이는 역시 이벤트들 중에서도 타입 별로 관리한다는 뜻이다. 그 다음으로 DOM 객체의 프로퍼티 중에 <code>'on'</code> 이 붙은 이벤트 타입의 프로퍼티를 보는데 만약 존재한다면 <code>handlers</code> 의 첫번째 인덱스에 초기화시킨다. 이건 jQuery가 DOM 객체에 미리 설정된 이벤트 핸들러 값이 있다면 전달받은 핸들러를 단순히 이벤트 타입 객체의 안쪽으로 이동시킨다는 것을 말한다.</p>
+
+<pre><code class="language-javascript">// Add the function to the element's handler list
+handlers[handler.guid] = handler;
+
+// And bind the global event handler to the element
+element[&quot;on&quot; + type] = this.handle;
+</code></pre>
+
+<p>전달받은 콜백함수를 <code>handlers</code> 에 넣어주고 마지막으로 DOM 객체의 이벤트 핸들러를 <code>this.handle</code> 로 설정한다. 여기서 <code>this</code> 는 <code>jQuery.event</code> 객체이므로 <code>jQuery.event.handle()</code> 메서드를 말하는 것이다. 따라서 jQuery에서 등록한 이벤트가 발생하면 <code>jQuery.event.handle()</code> 메서드만 호출한다는 것을 알 수 있다. 이는 <code>events</code> 객체 내부에서 각 이벤트 타입별로 관리하기 때문이다. 이제 이 메서드가 어떻게 동작하는지 알아보자.</p>
+
+<h2 id="jquery-event-handle">jQuery.event.handle()</h2>
+
+<pre><code class="language-javascript">function(event) {
+  ...
+
+  var returnValue = true;
+  var c = this.events[event.type];
+
+  for ( var j in c ) {
+    if ( c[j].apply( this, [event] ) === false ) {
+      event.preventDefault();
+      event.stopPropagation();
+      returnValue = false;
+    }
+  }
+
+  return returnValue;
+}
+</code></pre>
+
+<p>jQuery는 DOM 이벤트가 발생하면 이 메서드를 실행하기 때문에 해당 메서드 안에서의 <code>this</code> 는 DOM 객체임을 알 수 있다. 따라서 <code>c</code> 에 할당되는 것은 DOM 객체의 <code>events</code> 객체 내부에 <code>'click'</code> 프로퍼티로 정의된 객체이다. 해당 객체의 프로퍼티를 순회하는데 프로퍼티는 상수(<code>guid</code>) 이고 프로퍼티 값들이 콜백함수이므로 콜백함수에 명시적으로 DOM 객체를 바인딩 시켜서 호출한다는 것을 알 수 있다. 그렇게 호출을 하고 호출결과에 따라 리턴값이 반환된다.</p>
+
+<h2 id="jquery-이벤트-핸들러는-동시에-등록할-수-있다">jQuery 이벤트 핸들러는 동시에 등록할 수 있다.</h2>
+
+<p>위의 동작을 보면 알다시피 DOM 객체의 속성으로 <code>onclick</code> 으로 이벤트 핸들러를 등록하면 <code>events</code> 의 내부객체 중 일치하는 타입에 해당하는 객체의 프로퍼티 0에 해당 핸들러가 등록된다. 그 다음으로 <code>click()</code> 과 같은 메서드를 사용할 경우 <code>guid</code> 가 프로퍼티가 되서 등록됨을 알 수 있다. 따라서 여러개를 등록하면 방금 위에서 본 <code>jQuery.event.handle()</code> 메서드를 통해서 등록된 이벤트 핸들러들을 순회하면서 호출하는 방식이며 0부터 호출되기 때문에 <code>onclick</code> 으로 등록된 이벤트 핸들러가 가장 먼저 호출되는 구조이다.</p>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="http://www.yes24.com/Product/Goods/11781589?scode=032&amp;OzSrank=1">인사이드 자바스크립트</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjquery%2fjquery-analysis3%2f&t=%5bjQuery%5d%20jQuery%201.0%20%ec%86%8c%ec%8a%a4%ec%bd%94%eb%93%9c%20%eb%b6%84%ec%84%9d%20%283%29"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjquery%2fjquery-analysis3%2f&text=%5bjQuery%5d%20jQuery%201.0%20%ec%86%8c%ec%8a%a4%ec%bd%94%eb%93%9c%20%eb%b6%84%ec%84%9d%20%283%29&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjquery%2fjquery-analysis3%2f&title=%5bjQuery%5d%20jQuery%201.0%20%ec%86%8c%ec%8a%a4%ec%bd%94%eb%93%9c%20%eb%b6%84%ec%84%9d%20%283%29"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjquery%2fjquery-analysis3%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 17일 18시 44분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/jquery">#jQuery</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/jquery">#jQuery</a>
+        
+        <a href="http://localhost:1313/tags/1.0">#1.0</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/css/css-line-height/" rel="prev">
+          <span>[CSS] line-height</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/" rel="next">
+          <span>[Javascript] Array와 Array.prototype의 메서드</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

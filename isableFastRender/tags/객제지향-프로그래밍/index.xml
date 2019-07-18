@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>객제지향 프로그래밍 on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/%EA%B0%9D%EC%A0%9C%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+    <description>Recent content in 객제지향 프로그래밍 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Thu, 11 Jul 2019 17:44:55 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/%EA%B0%9D%EC%A0%9C%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] 객체지향 프로그래밍의 기본</title>
+      <link>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</link>
+      <pubDate>Thu, 11 Jul 2019 17:44:55 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/</guid>
+      <description>캡슐화의 구현 기존의 객체지향 프로그래밍에서 캡슐화(Encapsulation)는 관련된 정보를 하나의 틀 안에 담는 개념, 즉 관련된 멤버 변수와 메소드를 클래스라는 틀 안에 담는 개념이다. 이때 중요한 것이 바로 해당 정보의 공개수준인데 정보은닉(Information Hiding)이라고 하며 보통 private, public 등으로 사용할 수 있다. 자바스크립트에선 캡슐화와 정보은닉을 클로저를 통해 구현할 수 있다.
+var Person = function(arg) { var name = arg ? arg : &#39;haram&#39;; var F = function(){} F.prototype = { setName: function(arg2) { name = arg; }, getName: function() { return name; } }; return F; }();  IIFE를 통해서 클로저인 F 를 반환받고 F.</description>
+    </item>
+    
+  </channel>
+</rss>

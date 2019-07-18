@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>알고리즘 on 배하람 블로그</title>
+    <link>http://localhost:1313/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/</link>
+    <description>Recent content in 알고리즘 on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Tue, 09 Jul 2019 12:10:49 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[알고리즘] Lazy Propagation</title>
+      <link>http://localhost:1313/posts/algorithm/lazy-propagation/</link>
+      <pubDate>Tue, 09 Jul 2019 12:10:49 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/lazy-propagation/</guid>
+      <description>개념 기존 세그먼트 트리에서 하나의 리프노드를 업데이트 할 때 $O(lgN)$ 이 걸리기 때문에 구간 업데이트에 관련된 문제가 나올 경우 최대 $O(NlgN)$ 이 걸려서 시간초과를 받게 된다. 따라서 이를 위해 다른 알고리즘이 필요한데 바로 이러한 구간 업데이트를 단 $O(lgN)$ 만에 수행할 수 있는 테크닉이 lazy propagation이다. 이름의 뜻 그대로 게으르게(lazy) 전파(propagation) 한다는 것으로 특정 업데이트 구간에 포함되는 노드들에게 나중에 전파시킬 값을 저장해 둠으로써 다음 업데이트나 쿼리를 할 때 마다 자식노드들 한테만 전파해주면 되게 된다.</description>
+    </item>
+    
+    <item>
+      <title>[알고리즘] KMP 알고리즘</title>
+      <link>http://localhost:1313/posts/algorithm/kmp/</link>
+      <pubDate>Mon, 08 Jul 2019 17:38:54 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/kmp/</guid>
+      <description>다른 분야도 약하긴 하지만, 문자열이 상당히 약하기 때문에 전에 대충 공부했던 KMP를 다시 꺼내들어서 공부했다. 상당히 어려운 알고리즘이었고 이해하는데 꽤 오랜 시간이 걸렸다. 까먹으면 안되겠지만 혹시 몰라서 까먹을 나중을 위해서 공들여 정리하고자 한다.
+개요 KMP 알고리즘은 어떤 문자열 $H$와 $S$가 주어졌고 $H$가 $S$보다 긴 경우에, $H$ 안에 $S$가 포함되어 있는지를 탐색하는 알고리즘이다. 자, 생각을 해보자. 예를 들어 단순 브루트 포스로 $S$를 탐색한다면 상당히 오랜 시간이 걸릴 수밖에 없다.
+예를 들어, ABAABAA라는 문자열 $H$에서 부분문자열 ABAC를 찾기 위해선 아래와 같이 찾아야 한다.</description>
+    </item>
+    
+    <item>
+      <title>[알고리즘] 확장 유클리드 알고리즘</title>
+      <link>http://localhost:1313/posts/algorithm/extended-euclidean/</link>
+      <pubDate>Mon, 08 Jul 2019 17:35:22 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/algorithm/extended-euclidean/</guid>
+      <description>유클리드 호제법(Euclidean algorithm) 정의 유클리드 호제법(= 유클리드 알고리즘)은 두 정수 사이의 최대공약수를 보다 효과적으로 구하는 방법으로 두 정수 $a,b$ 가 존재할 때 다음 식을 만족하는 방법론을 일컫는 말이다. $$ GCD(A,B) = GCD(B,r) $$ 이 때 $A\gt B$ 가 성립하며 $A\equiv r\ (mod\ B)$ 를 조건으로 한다.
+증명 두 정수 $A,B(A \gt B)$ 의 최대공약수(GCD)를 $G$ 라고 하자. $G$ 는 공약수이므로 두 서로소 $a,b$ 에 대해 다음 식이 성립한다. $$ A=aG, B=bG $$ $A$ 를 $B$ 로 나눈 나머지를 $r$ , 몫을 $q$ 라고 하면 $A=qB+r\ (0\le r \lt \lvert B \rvert)$ 를 만족한다.</description>
+    </item>
+    
+  </channel>
+</rss>

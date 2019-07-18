@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[알고리즘] Lazy Propagation  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[알고리즘] Lazy Propagation'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[알고리즘] Lazy Propagation">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-09">
+  
+  <meta property="og:description" content="desribe-your-site '[알고리즘] Lazy Propagation'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/algorithm/lazy-propagation/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="알고리즘">
+  
+  <meta property="og:tags" content="세그먼트 트리">
+  
+  <meta property="og:tags" content="레이지 프로퍼게이션">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/algorithm/lazy-propagation/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/algorithm/lazy-propagation/">
+      <div class="post-meta">
+        <time>2019년 07월 09일 12시 10분</time>
+        <h1>[알고리즘] Lazy Propagation</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="개념">개념</h2>
+
+<p>기존 세그먼트 트리에서 하나의 리프노드를 업데이트 할 때 $O(lgN)$ 이 걸리기 때문에 구간 업데이트에 관련된 문제가 나올 경우 최대 $O(NlgN)$ 이 걸려서 시간초과를 받게 된다. 따라서 이를 위해 다른 알고리즘이 필요한데 바로 이러한 구간 업데이트를 단 $O(lgN)$ 만에 수행할 수 있는 테크닉이 lazy propagation이다. 이름의 뜻 그대로 게으르게(lazy) 전파(propagation) 한다는 것으로 특정 업데이트 구간에 포함되는 노드들에게 나중에 전파시킬 값을 저장해 둠으로써 다음 업데이트나 쿼리를 할 때 마다 자식노드들 한테만 전파해주면 되게 된다.</p>
+
+<p>위 방식을 구현하기 위해서 각 노드는 <code>lazy</code> 배열을 가지며 이는 다음 업데이트나 쿼리에 대해서 현재 노드를 포함한 모든 자식 노드들에 적용되는 값을 가지는 배열을 뜻한다. 이를 통해 한번에 업데이트 하지 않고 <code>lazy</code> 배열을 참조하며 업데이트가 필요할 때만 해줄 수 있게 된다.</p>
+
+<p>배열 <code>[1,5,6,2,4]</code> 에 대해서 구간합 예시를 통해 어떻게 동작하는지 살펴보도록 하자.</p>
+
+<p><img src="/images/algorithm/lazy/lazy1.png" alt="lazy1" /></p>
+
+<p>세그먼트 트리는 위와 같이 구성됨을 알 수 있고 여기서 구간  <code>0~1</code> 에 3을 더한다고 해보자.</p>
+
+<p><img src="/images/algorithm/lazy/lazy2.png" alt="lazy2" /></p>
+
+<p>위 그림의 뜻은 <code>0-1</code> 에 해당하는 노드 하위 노드들에게 더할 값이 <code>3</code> 이 있고 현재 노드를 업데이트 해주자는 것이다. <strong>단, 주의할 점은 현재 노드에 업데이트 해줄 때 자식노드들의 개수를 곱해줘야 한다는 것을 꼭 기억하자!</strong> 여기서 자식 노드들에게 초기화시킨 <code>lazy</code> 배열의 값은 나중에 다시 업데이트를 하거나 쿼리를 날릴 때 해당 값을 사용하여 자식들을 업데이트하고 propagation을 시키기 위함이다. 이를 보기 위해 이번엔 구간 쿼리인 <code>1-2</code> 를 날렸다고 해보자.</p>
+
+<p><img src="/images/algorithm/lazy/lazy3.png" alt="lazy3" /></p>
+
+<p>그럼 위와 같이 쿼리를 날리게 되면 먼저 <code>lazy</code> 값을 가지는지 확인을 한 다음 자식으로 propagation을 시키는데, 위의 경우는 리프노드가 <code>lazy</code> 값을 가지고 있기 때문에 바로 노드에 더해버린다. 정리해보면 다음과 같다.</p>
+
+<ul>
+<li><strong>구간 업데이트</strong>
+
+<ul>
+<li>Propagation</li>
+<li>업데이트 구간 안에 속하는 경우, 현재노드 업데이트 해주고 자식의 <code>lazy</code> 값 업데이트</li>
+<li>나머지는 기존 세그먼트 트리의 업데이트와 동일</li>
+</ul></li>
+<li><strong>구간 쿼리</strong>
+
+<ul>
+<li>Propagation</li>
+<li>나머지는 기존 세그먼트 트리의 쿼리와 동일</li>
+</ul></li>
+<li><strong>Propagation</strong>
+
+<ul>
+<li><code>lazy</code> 값 있는지 확인</li>
+<li>해당 <code>lazy</code> 값으로 현재 노드 업데이트</li>
+<li>리프노드가 아닐 경우 자식으로 전파</li>
+<li>마지막에 현재 노드의 <code>lazy</code> 값을 초기화 → 업데이트 해주었으니 나중을 위해서 초기화해야함</li>
+</ul></li>
+</ul>
+
+<h2 id="구간합-구현">구간합 구현</h2>
+
+<p><a href="https://www.acmicpc.net/problem/10999">구간 합 구하기 2</a> 를 구현한 소스코드이다.</p>
+
+<h3 id="구간-업데이트">구간 업데이트</h3>
+
+<pre><code class="language-c++">void update(int node, int s, int e, int l, int r, ll add)
+{
+    propagate(node,s,e);
+    if(r&lt;s || l&gt;e) return;
+    if(l&lt;=s &amp;&amp; e&lt;=r){
+        segTree[node] += (e-s+1)*add;
+        if(s!=e){
+            lazy[node*2] += add;
+            lazy[node*2+1] += add;
+        }
+        return;
+    }
+    update(node*2,s,(s+e)/2,l,r,add);
+    update(node*2+1,(s+e)/2+1,e,l,r,add);
+    segTree[node] = segTree[node*2]+segTree[node*2+1];
+}
+</code></pre>
+
+<h3 id="구간-쿼리">구간 쿼리</h3>
+
+<pre><code class="language-c++">ll query(int node, int s, int e, int l, int r)
+{
+    propagate(node,s,e);
+    if(r&lt;s || l&gt;e) return 0;
+    if(l&lt;=s &amp;&amp; e&lt;=r) return segTree[node];
+    return query(node*2,s,(s+e)/2,l,r)+query(node*2+1,(s+e)/2+1,e,l,r);
+}
+</code></pre>
+
+<h3 id="propagation">Propagation</h3>
+
+<pre><code class="language-c++">void propagate(int node, int s, int e)
+{
+    if(lazy[node]){
+        segTree[node] += (e-s+1)*lazy[node];
+        if(s!=e){
+            lazy[node*2] += lazy[node];
+            lazy[node*2+1] += lazy[node];
+        }
+        lazy[node] = 0;
+    }
+}
+</code></pre>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2falgorithm%2flazy-propagation%2f&t=%5b%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98%5d%20Lazy%20Propagation"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2falgorithm%2flazy-propagation%2f&text=%5b%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98%5d%20Lazy%20Propagation&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2falgorithm%2flazy-propagation%2f&title=%5b%ec%95%8c%ea%b3%a0%eb%a6%ac%ec%a6%98%5d%20Lazy%20Propagation"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2falgorithm%2flazy-propagation%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 09일 12시 10분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">#알고리즘</a>
+        
+        <a href="http://localhost:1313/tags/%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%8A%B8-%ED%8A%B8%EB%A6%AC">#세그먼트 트리</a>
+        
+        <a href="http://localhost:1313/tags/%EB%A0%88%EC%9D%B4%EC%A7%80-%ED%94%84%EB%A1%9C%ED%8D%BC%EA%B2%8C%EC%9D%B4%EC%85%98">#레이지 프로퍼게이션</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/algorithm/kmp/" rel="prev">
+          <span>[알고리즘] KMP 알고리즘</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsexecution-context/" rel="next">
+          <span>[Javascript] Execution Context</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

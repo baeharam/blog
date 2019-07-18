@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[Javascript] 객체지향 프로그래밍의 기본  | 배하람 블로그</title>
+  <meta name="description" content="desribe-your-site '[Javascript] 객체지향 프로그래밍의 기본'을 한 번 살펴보세요.">
+  <meta property="og:title" content="[Javascript] 객체지향 프로그래밍의 기본">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-11">
+  
+  <meta property="og:description" content="desribe-your-site '[Javascript] 객체지향 프로그래밍의 기본'을 한 번 살펴보세요.">
+  <meta property="og:url" content="http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">
+  <meta property="og:site_name" content="배하람 블로그">
+  
+  <meta property="og:image" content="http://localhost:1313/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="Javascript">
+  
+  <meta property="og:tags" content="객제지향 프로그래밍">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> 메뉴
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">배하람 블로그</a></li>
+        <li><a href="/categories">카테고리</a></li>
+        <li><a href="/tags">태그</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="검색어" value="">
+    </div>
+  </div>
+  <div class="container">    
+
+<div class="post">
+  <div class="post-title">
+    <a href="http://localhost:1313/posts/javascript/js%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D/">
+      <div class="post-meta">
+        <time>2019년 07월 11일 17시 44분</time>
+        <h1>[Javascript] 객체지향 프로그래밍의 기본</h1>
+      </div>
+    </a>
+  </div>
+  <section class="post-content">
+    
+
+<h2 id="캡슐화의-구현">캡슐화의 구현</h2>
+
+<p>기존의 객체지향 프로그래밍에서 <strong>캡슐화(Encapsulation)</strong>는 관련된 정보를 하나의 틀 안에 담는 개념, 즉 관련된 멤버 변수와 메소드를 클래스라는 틀 안에 담는 개념이다. 이때 중요한 것이 바로 해당 정보의 공개수준인데 <strong>정보은닉(Information Hiding)</strong>이라고 하며 보통 <code>private</code>, <code>public</code> 등으로 사용할 수 있다. 자바스크립트에선 캡슐화와 정보은닉을 클로저를 통해 구현할 수 있다.</p>
+
+<pre><code class="language-javascript">var Person = function(arg) {
+  var name = arg ? arg : 'haram';
+  var F = function(){}
+  F.prototype = {
+    setName: function(arg2) {
+      name = arg;
+    },
+    getName: function() {
+      return name;
+    }
+  };
+  return F;
+}();
+</code></pre>
+
+<p>IIFE를 통해서 클로저인 <code>F</code> 를 반환받고 <code>F.prototype</code> 에 있는 메소드들을 활용하여 <code>name</code> 에 접근할 수 있게 된다. 클로저의 특성 상 당연히 반환받은 <code>F</code> 로 <code>name</code> 에 접근할 수 없다는 점에서 <code>name</code> 은 <code>private</code> 멤버변수이고 <code>setName</code> 과 <code>getName</code> 은 <code>public</code> 메소드라고 볼 수 있다.</p>
+
+<h2 id="클래스의-구현">클래스의 구현</h2>
+
+<p>객체지향 프로그래밍 언어들은 클래스를 통해 인스턴스를 생성하는데 이를 자바스크립트에서 구현해보는 것은 자바스크립트의 객체지향 개념을 이해하는데 필수적이다. 이를 이해하고 구현하기 위해선 다음 것들을 활용해야 한다.</p>
+
+<ul>
+<li>함수의 프로토타입 체인</li>
+<li><code>extend</code> 함수 (객체 확장 함수)</li>
+<li>인스턴스를 생성할 때의 생성자 호출 (<code>_init</code>)</li>
+</ul>
+
+<p>클래스 역할을 하는 함수의 이름을 <code>subClass</code> 라고 하고 단계적으로 구현해보자.</p>
+
+<h3 id="부모-클래스-초기화">부모 클래스 초기화</h3>
+
+<p>클래스를 생성할 때 처음 만드는 경우, 아니면 상속시키는 경우 둘 중 한가지인데 최상위 클래스가 <code>Function</code> 을 상속받기 때문에  <code>window</code> 객체와 구분해줘야 한다.</p>
+
+<pre><code class="language-javascript">var subClass = function(obj) {
+  var parent = this===window ? Function : this;
+  ...
+}
+</code></pre>
+
+<h3 id="생성자-초기화">생성자 초기화</h3>
+
+<p>생성자를 호출할 땐 자기 자신의 생성자와 부모의 생성자를 호출해야 하는데, 부모 클래스가 연쇄적으로 있을 경우라면 재귀적으로 이루어져야 한다.</p>
+
+<pre><code class="language-javascript">var subClass = function(obj) {
+  ...
+  var child = function() {
+    var _parent = child.parent;
+    if(_parent &amp;&amp; _parent!==Function) {
+      _parent.apply(this,arguments);
+    }
+    if(child.prototype._init) {
+      child.prototype._init.apply(this,arguments);
+    }
+  }
+  ...
+}
+</code></pre>
+
+<p>갑자기 뭐가 많아져서 난해할 수 있지만 코드를 자세히 차근차근 보면 이해할 수 있다. <code>_parent</code> 는 현재 클래스의 부모 클래스를 말하여 부모 클래스가 존재하고 최상위 클래스인 <code>Function</code> 이 아니라면 부모 클래스의 생성자를 재귀적으로 호출한다. 그 다음으로 현재 클래스의 생성자가 존재하면 호출한다. 여기서 생성자가 클로저이기 때문에 <code>child</code> 의 값을 가지고 있다는 점을 알아야 이해할 수 있는데 해당 코드는 이후에 나온다.</p>
+
+<h3 id="프로토타입-체이닝을-이용한-클래스-기반-상속구현">프로토타입 체이닝을 이용한 클래스 기반 상속구현</h3>
+
+<p>이전 포스팅에서 프로토타입 기반 상속과 클래스 기반 상속에 대해서 살펴봤는데 여기선 함수객체를 매개체로 하는 클래스 기반 상속을 사용하였다.</p>
+
+<pre><code class="language-javascript">var subClass = function(obj) {
+  ...
+  function F() {}
+  F.prototype = parent.prototype;
+  child.prototype = new F();
+  child.prototype.constructor = child;
+  child.parent = parent;
+  child.subClass = arguments.callee;
+  ...
+}
+</code></pre>
+
+<p>마지막 줄을 제외하고는 다 봤으니 마지막 줄이 어떤 말인지 알아보자. <code>arguments.callee</code> 라는 것은 호출된 함수를 지칭하는 것으로 여기선 <code>subClass</code> 를 말하는데 이를 현재 클래스의 <code>subClass</code> 프로퍼티에 추가하는 것은 현재 클래스를 부모 클래스로 갖는 자식 클래스 또한 만들 수 있기 때문이다. 따라서 메소드로 추가해놓고 연쇄적으로 사용하는 목적이라고 볼 수 있다.</p>
+
+<h3 id="extend-의-구현">extend() 의 구현</h3>
+
+<p>깊은 복사를 적용하지 않고 얕은 복사로만 간단히 구현해 보면 다음과 같다.</p>
+
+<pre><code class="language-javascript">var subClass = function(obj) {
+  ...
+  for(var prop in obj){
+    if(obj.hasOwnProperty(prop)) {
+      child.prototype[prop] = obj[prop];
+    }
+  }
+  return child;
+}
+</code></pre>
+
+<h3 id="상속-최적화">상속 최적화</h3>
+
+<p>상속을 구현할 때 함수객체 <code>F</code> 를 사용하였는데 이는 <code>subClass()</code> 를 호출할 때마다 생성되어 메모리에 올라가게 된다. 비효율적이기 때문에 이를 한번만 생성하고 클로저로 사용하기로 하자.</p>
+
+<pre><code class="language-javascript">var subClass = function(obj) {
+  function F() {}
+  var subClass = function(obj) {
+    ...
+    return child;
+  };
+  return subClass;
+}();
+</code></pre>
+
+<p>IIFE를 활용하면 <code>subClass</code> 가 바로 클로저를 받아낼 수 있다.</p>
+
+<h2 id="참조">참조</h2>
+
+<ul>
+<li><a href="http://www.yes24.com/Product/Goods/11781589?scode=032&amp;OzSrank=1">인사이드 자바스크립트</a></li>
+</ul>
+
+  </section>
+  <div class="share">    
+    <a
+      href="//www.facebook.com/sharer.php?src=bm&u=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs%25EA%25B0%259D%25EC%25B2%25B4%25EC%25A7%2580%25ED%2596%25A5-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%2f&t=%5bJavascript%5d%20%ea%b0%9d%ec%b2%b4%ec%a7%80%ed%96%a5%20%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d%ec%9d%98%20%ea%b8%b0%eb%b3%b8"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-facebook"></i
+    ></a>
+    <a
+      href="//twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs%25EA%25B0%259D%25EC%25B2%25B4%25EC%25A7%2580%25ED%2596%25A5-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%2f&text=%5bJavascript%5d%20%ea%b0%9d%ec%b2%b4%ec%a7%80%ed%96%a5%20%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d%ec%9d%98%20%ea%b8%b0%eb%b3%b8&tw_p=tweetbutton"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-twitter"></i
+    ></a>
+    <a
+      href="//getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs%25EA%25B0%259D%25EC%25B2%25B4%25EC%25A7%2580%25ED%2596%25A5-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%2f&title=%5bJavascript%5d%20%ea%b0%9d%ec%b2%b4%ec%a7%80%ed%96%a5%20%ed%94%84%eb%a1%9c%ea%b7%b8%eb%9e%98%eb%b0%8d%ec%9d%98%20%ea%b8%b0%eb%b3%b8"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-get-pocket"></i
+    ></a>
+    <a
+      href="//plus.google.com/share?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fjavascript%2fjs%25EA%25B0%259D%25EC%25B2%25B4%25EC%25A7%2580%25ED%2596%25A5-%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25B0%258D%2f"
+      onclick="window.open(this.href, 'PCwindow', 'width=550, height=350, menubar=no, toolbar=no, scrollbars=yes'); return false;"
+      ><i class="fa fa-google-plus"></i
+    ></a>
+  </div>
+  <div class="post-meta-code">
+    <div class="desc">
+      친절한
+      
+      <a href="mailto:gkfka6484@gmail.com">배하람</a>
+      
+      님이
+      <span class="highlight">2019년 07월 11일 17시 44분</span> 
+      에 작성한 글입니다.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_카테고리</span>
+        
+        
+        <a href="http://localhost:1313//categories/javascript">#Javascript</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_태그</span>
+        
+        
+        <a href="http://localhost:1313/tags/javascript">#Javascript</a>
+        
+        <a href="http://localhost:1313/tags/%EA%B0%9D%EC%A0%9C%EC%A7%80%ED%96%A5-%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D">#객제지향 프로그래밍</a>
+        
+        
+      </div>
+    </div>
+  </div>  
+  
+  <div class="recommend-articles">
+    다음으로 읽을만한 글입니다.
+    <ul>
+      
+      <li>
+        <a href="http://localhost:1313/posts/javascript/jsinheritance/" rel="prev">
+          <span>[Javascript] Inheritance</span>
+        </a>
+      </li>
+      
+      
+      <li>
+        <a href="http://localhost:1313/posts/data-structure/heap/" rel="next">
+          <span>[자료구조] 힙(Heap)</span>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>위로</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+<script data-no-instant>document.write('<script src="/livereload.js?port=1313&mindelay=10"></' + 'script>')</script></body>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+</html>
+

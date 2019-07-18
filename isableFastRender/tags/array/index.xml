@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Array on 배하람 블로그</title>
+    <link>http://localhost:1313/tags/array/</link>
+    <description>Recent content in Array on 배하람 블로그</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>gkfka6484@gmail.com (배하람)</managingEditor>
+    <webMaster>gkfka6484@gmail.com (배하람)</webMaster>
+    <lastBuildDate>Thu, 18 Jul 2019 14:50:07 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/tags/array/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[Javascript] Array와 Array.prototype의 메서드</title>
+      <link>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</link>
+      <pubDate>Thu, 18 Jul 2019 14:50:07 +0900</pubDate>
+      <author>gkfka6484@gmail.com (배하람)</author>
+      <guid>http://localhost:1313/posts/javascript/js-methods-of-array-and-array.prototype/</guid>
+      <description>기존 메서드  Array.prototype.slice([begin[, end]])  var a = [1,2,3,4]; var b = a.slice(0,3); // [1,2,3]  begin 이상 end 미만의 부분 배열 리턴
+ Array.prototype.splice(start[, deleteCount[, item1[, item2[, &amp;hellip;]]]])  var a = [1,2,3,4]; a.slice(2,1,5); // [1,2,5,4]  start 에서 시작해서 deleteCount 만큼 제거하고 item1 삽입
+ES6의 새로운 메서드  Array.prototype.find(callback[, thisArg])  var a = [1,2,3,4]; var b = a.find((num) =&amp;gt; num%2 === 0); // 2  주어진 조건을 만족하는 첫번째 요소를 반환</description>
+    </item>
+    
+  </channel>
+</rss>
