@@ -4,8 +4,7 @@ title = "배하람 블로그"
 languageCode = "ko-KR"
 DefaultContentLanguage = "kr"
 theme = "hugo-hello-programmer-theme"
-disqusShortname = "XXXX"
-googleAnalytics = "UA-XXXXXXXX-X"
+googleAnalytics = "UA-144188943-1"
 paginate = 7
 
 [author]
@@ -13,7 +12,7 @@ paginate = 7
     email = "hisfedev@gmail.com"
 
 [params]
-    description = "desribe-your-site"
+    description = "개발을 기록하는 블로그"
 
 [permalink]
     posts = "/:filename/"

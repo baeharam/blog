@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }} {{ if ne .Title .Site.Title }} | {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ if .IsHome }}{{ $.Site.Params.description }}{{ else }}{{ $.Site.Params.description}} '{{ .Title }}'{{ i18n "menuOgDescPostfix" }}{{ end }}">
+  <meta property="og:title" content="{{ .Title }}">
+  {{ if .IsPage }}
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02" }}">
+  {{ else }}
+  <meta property="og:type" content="website">
+  {{ end }}
+  <meta property="og:description" content="{{ if .IsHome }}{{ $.Site.Params.description }}{{ else }}{{ $.Site.Params.description}} '{{ .Title }}'{{ i18n "menuOgDescPostfix" }}{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  {{ if .Params.cover }}
+  <meta property="og:image" content="{{ .Params.cover | absURL }}">
+  {{ else }}
+  <meta property="og:image" content="{{ "images/thumbnail.png" | absURL }}">
+  {{ end }}
+  {{ range .Params.tags }}
+  <meta property="og:tags" content="{{ . }}">
+  {{ end }}
+  <link rel="icon" href="{{ "/favicon.ico" | relURL }}" type="image/x-icon">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ end -}}
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ "/css/styles.css" | relURL }}">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  {{ if not .Site.BuildDrafts }}
+  {{ if .Site.GoogleAnalytics }}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ .Site.GoogleAnalytics }}');
+  </script>
+  {{ end }}
+  {{ end }}
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+  {{ template "_internal/google_analytics.html" . }}
+</head>
+<body>
+  <div class="navbar">
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> {{ i18n "menuBurgerTitle" }}
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="{{ "/" | relURL }}">{{ .Site.Title }}</a></li>
+        <li><a href="{{ "/categories" | relURL }}">{{ i18n "menuCategories" }}</a></li>
+        <li><a href="{{ "/tags" | relURL }}">{{ i18n "menuTags" }}</a></li>       
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="{{ i18n "menuSearchKeyword" }}" value="">
+    </div>
+  </div>
+  <div class="container">    
