@@ -3,7 +3,7 @@ title: "[Javascript] Symbol"
 date: 2019-07-19T20:25:19+09:00
 categories: ["Javascript"]
 tags: ["Javascript","ES6","Symbol"]
-draft: true
+draft: false
 ---
 
 ## 개요
