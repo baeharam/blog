@@ -3,7 +3,7 @@ title: "[GIT] 용량이 큰 파일을 삭제했는데도 push가 실패할 때"
 date: 2019-08-27T14:31:45+09:00
 categories: ["git"]
 tags: ["git", "push"]
-draft: true
+draft: false
 ---
 
 제목 그대로, 용량이 큰 파일을 올리다가 실패해서 삭제하고 다시 push했는데 실패하는 경우가 종종 있었다. 자주 이런 현상이 발생해서 해결법을 정리하고자 한다.
