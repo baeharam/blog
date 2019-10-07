@@ -1,5 +1,5 @@
 ---
-title: "[JS] 자바스크립트는 어떻게 동작할까?"
+title: "[Javascript] 자바스크립트는 어떻게 동작할까?"
 date: 2019-09-28T16:43:33+09:00
 categories: ["Javascript"]
 tags: ["Javascript", "Call stack", "Event loop", "Callback queue"]
