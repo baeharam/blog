@@ -6,7 +6,13 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ["Autograf PERSONAL USE ONLY"]
+      sans: ["Nanum Gothic"],
+    },
+    extend: {
+      colors: {
+        "strong-blue": "#3259A4"
+      }
     }
-  }
+  },
+  plugins: [require('@tailwindcss/typography')]
 }
