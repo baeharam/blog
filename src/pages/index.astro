@@ -6,7 +6,7 @@ const allPosts = await Astro.glob("./posts/*.md");
 ---
 
 <Layout>
-  <ul>
+  <ul class="flex flex-col space-y-16">
     {
       allPosts.map(({ frontmatter, file }) => {
         const path =
