@@ -11,6 +11,9 @@ module.exports = {
     extend: {
       colors: {
         "strong-blue": "#3259A4"
+      },
+      boxShadow: {
+        "link-underline": "0 1px 0 0 #3259A4"
       }
     }
   },
