@@ -1,3 +1,5 @@
+const plugin = require("tailwindcss/plugin");
+
 module.exports = {
   content: [
     './public/**/*.html',
@@ -17,5 +19,12 @@ module.exports = {
       }
     }
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [require('@tailwindcss/typography'), plugin(function({ addBase }) {
+    addBase({
+      '@font-face': {
+        fontFamily: "\'Autograf\'",
+        src: "url(/fonts/Autograf.woff) format(\'woff\')"
+      }
+    })
+  })]
 }
