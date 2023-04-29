@@ -7,7 +7,7 @@ layout: ../../layouts/PostLayout.astro
 
 # `useEffect` 되돌아보기
 
-리액트에서 훅이 나온 시점부터 흔히들 말하는 "부수효과(Side Effect)" 를 구현하기 위해 `useEffect` 를 많이 사용해왔다. 클래스 컴포넌트에서 넘어오는 시점에 `componentDidMount` 와 같은 생명주기(Life Cycle) 함수를 대체하는 훅이 아니냐 했던 시점은 지났고 대부분의 사람들은 부수효과를 작동시키는데 사용하고 있는 추세이다. 훅이 나온 날짜는 2019년 2월 16일로 16.8 릴리즈에서 처음 등장했다. 오늘 날짜가 22년 9월 9일이니 3년 7개월정도가 지나서 오랜 기간 수많은 사람들이 훅을 사용해왔다. 
+리액트에서 훅이 나온 시점부터 흔히들 말하는 "부수효과(Side Effect)" 를 구현하기 위해 `useEffect` 를 많이 사용해왔다. 클래스 컴포넌트에서 넘어오는 시점에 `componentDidMount` 와 같은 생명주기(Life Cycle) 함수를 대체하는 훅이 아니냐 했던 시점은 지났고 대부분의 사람들은 부수효과를 작동시키는데 사용하고 있는 추세이다. 훅이 나온 날짜는 2019년 2월 16일로 16.8 릴리즈에서 처음 등장했다. 오늘 날짜가 22년 9월 9일이니 3년 7개월정도가 지나서 오랜 기간 수많은 사람들이 훅을 사용해왔다.
 
 많이 사용한 만큼 `useEffect` 의 크기가 커지고 개수가 많아짐에 따라서 웹 어플리케이션의 코드를 읽는게 점점 어려워졌고 의존성에 따라 동작해서 렌더링되는 횟수를 예측하기도 어려워졌다. 또한, 정말 이 훅에 적합한 상황에서만 사용하지 않는 경우도 꽤 발생했기 때문에 하나의 컴포넌트 안에서 필요없는 `useEffect` 의 사용들도 많아졌다. 따라서, 이 포스팅에선 `useEffect` 를 사용하는 이유에 대해 다시 살펴보고자 한다.
 
@@ -35,7 +35,7 @@ layout: ../../layouts/PostLayout.astro
 
 즉, 다시 정리하면 "외부 시스템" 과 동기화 하기 위한 "렌더링" 으로 발생하는 부수효과에 사용하는 것이 `useEffect` 라는 것이다. 아래의 공식 문서 설명을 보도록 하자.
 
-> *Effects* let you run some code after rendering so that you can synchronize your component with some system outside of React.
+> _Effects_ let you run some code after rendering so that you can synchronize your component with some system outside of React.
 
 그렇다면 여기서 말하는 "외부 시스템" 이란 무엇일까? 관습적으로 우리가 짜는 코드들을 보면 알 수 있는데 DOM, 백엔드 API 서버, 애널리틱스(마케팅 도구들), 리액트로 만들지 않은 UI 위젯 라이브러리.. 등이 모두 해당된다. 좀 더 현상적으로 말하자면,
 
@@ -51,8 +51,8 @@ useEffect(() => {
   function handleScroll(e) {
     console.log(e.clientX, e.clientY);
   }
-  window.addEventListener('scroll', handleScroll);
-  return () => window.removeEventListener('scroll', handleScroll);
+  window.addEventListener("scroll", handleScroll);
+  return () => window.removeEventListener("scroll", handleScroll);
 }, []);
 ```
 
@@ -64,19 +64,19 @@ useEffect(() => {
 
 이제 언제 `useEffect` 를 써야 하는지 어느 정도 알았으니, 굳이 쓰지 않아도 되는 상황들을 알아보자. 이 상황들에 대해 인지하고 있어야 `useEffect` 를 사용할 때 리액트의 목적과 적합하게 사용할 수 있을 것이다.
 
-### `state` 와 `props` 로 또 다른 `state` 업데이트 
+### `state` 와 `props` 로 또 다른 `state` 업데이트
 
 관습적으로, `state` 나 `props` 를 변형 또는 결합하여 또 다른 값을 만든 뒤 보여주고 싶은 경우에 해당 상태값을 선언하여 `useEffect` 로 업데이트 하는 로직을 많이 사용한다. 아래 공식문서의 예제는 좀 간단하긴 하지만 2개의 상태값을 결합하여 또 다른 값을 만드는 것이다.
 
 ```typescript
 function Form() {
-  const [firstName, setFirstName] = useState('Taylor');
-  const [lastName, setLastName] = useState('Swift');
+  const [firstName, setFirstName] = useState("Taylor");
+  const [lastName, setLastName] = useState("Swift");
 
   // 🔴 좋지않음: 중복된 상태와 필요없는 이펙트
-  const [fullName, setFullName] = useState('');
+  const [fullName, setFullName] = useState("");
   useEffect(() => {
-    setFullName(firstName + ' ' + lastName);
+    setFullName(firstName + " " + lastName);
   }, [firstName, lastName]);
   // ...
 }
@@ -86,10 +86,10 @@ function Form() {
 
 ```typescript
 function Form() {
-  const [firstName, setFirstName] = useState('Taylor');
-  const [lastName, setLastName] = useState('Swift');
+  const [firstName, setFirstName] = useState("Taylor");
+  const [lastName, setLastName] = useState("Swift");
   // ✅ 좋음: 렌더링 중에 계산됨
-  const fullName = firstName + ' ' + lastName;
+  const fullName = firstName + " " + lastName;
   // ...
 }
 ```
@@ -100,11 +100,11 @@ function Form() {
 
 ```typescript
 export default function ProfilePage({ userId }) {
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   // 🔴 좋지않음: 이펙트 안에서 props 에 따라 초기화됨
   useEffect(() => {
-    setComment('');
+    setComment("");
   }, [userId]);
   // ...
 }
@@ -114,17 +114,12 @@ export default function ProfilePage({ userId }) {
 
 ```typescript
 export default function ProfilePage({ userId }) {
-  return (
-    <Profile
-      userId={userId} 
-      key={userId}
-    />
-  );
+  return <Profile userId={userId} key={userId} />;
 }
 
 function Profile({ userId }) {
   // ✅ 좋음: key 가 바뀜에 따라서 이 상태와 아래의 모든 상태들은 자동적으로 초기화된다.
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   // ...
 }
 ```
@@ -149,8 +144,9 @@ function App() {
 하지만 굳이 이펙트가 필요없는 것이, 단 1번만 실행하면 되기에 컴포넌트 외부에서 실행해주면 간단하다.
 
 ```typescript
-if (typeof window !== 'undefined') { // 브라우저에서 실행하고 있는지 확인
-   // ✅ 좋음: 앱이 로드될 때마다 1번만 실행
+if (typeof window !== "undefined") {
+  // 브라우저에서 실행하고 있는지 확인
+  // ✅ 좋음: 앱이 로드될 때마다 1번만 실행
   checkAuthToken();
   loadDataFromLocalStorage();
 }
@@ -173,7 +169,7 @@ function SearchResults({ query }) {
 
   useEffect(() => {
     // 🔴 좋지않음: cleanup 로직 없이 데이터 가져오기
-    fetchResults(query, page).then(json => {
+    fetchResults(query, page).then((json) => {
       setResults(json);
     });
   }, [query, page]);
@@ -196,10 +192,10 @@ function SearchResults({ query }) {
 ```typescript
 function SearchResults({ query }) {
   const [results, setResults] = useState([]);
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(1);
   useEffect(() => {
     let ignore = false;
-    fetchResults(query, page).then(json => {
+    fetchResults(query, page).then((json) => {
       if (!ignore) {
         setResults(json);
       }
@@ -241,11 +237,11 @@ function useOnlineStatus() {
 
     updateState();
 
-    window.addEventListener('online', updateState);
-    window.addEventListener('offline', updateState);
+    window.addEventListener("online", updateState);
+    window.addEventListener("offline", updateState);
     return () => {
-      window.removeEventListener('online', updateState);
-      window.removeEventListener('offline', updateState);
+      window.removeEventListener("online", updateState);
+      window.removeEventListener("offline", updateState);
     };
   }, []);
   return isOnline;
@@ -256,11 +252,11 @@ function useOnlineStatus() {
 
 ```typescript
 function subscribe(callback) {
-  window.addEventListener('online', callback);
-  window.addEventListener('offline', callback);
+  window.addEventListener("online", callback);
+  window.addEventListener("offline", callback);
   return () => {
-    window.removeEventListener('online', callback);
-    window.removeEventListener('offline', callback);
+    window.removeEventListener("online", callback);
+    window.removeEventListener("offline", callback);
   };
 }
 
@@ -279,11 +275,11 @@ function useOnlineStatus() {
 // React 의 useSyncExternalStoreShimClient.js
 useEffect(() => {
   if (checkIfSnapshotChanged(inst)) {
-    forceUpdate({inst});
+    forceUpdate({ inst });
   }
   const handleStoreChange = () => {
     if (checkIfSnapshotChanged(inst)) {
-      forceUpdate({inst});
+      forceUpdate({ inst });
     }
   };
   return subscribe(handleStoreChange);

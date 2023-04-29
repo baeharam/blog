@@ -2,9 +2,9 @@ const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   content: [
-    './public/**/*.html',
-    './src/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}',
-    '../../libs/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}',
+    "./public/**/*.html",
+    "./src/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}",
+    "../../libs/**/*.{astro,md,js,jsx,svelte,ts,tsx,vue}",
   ],
   theme: {
     fontFamily: {
@@ -12,19 +12,22 @@ module.exports = {
     },
     extend: {
       colors: {
-        "strong-blue": "#3259A4"
+        "strong-blue": "#3259A4",
       },
       boxShadow: {
-        "link-underline": "0 1px 0 0 #3259A4"
-      }
-    }
+        "link-underline": "0 1px 0 0 #3259A4",
+      },
+    },
   },
-  plugins: [require('@tailwindcss/typography'), plugin(function({ addBase }) {
-    addBase({
-      '@font-face': {
-        fontFamily: "\'Autograf\'",
-        src: "url(/fonts/Autograf.woff) format(\'woff\')"
-      }
-    })
-  })]
-}
+  plugins: [
+    require("@tailwindcss/typography"),
+    plugin(function ({ addBase }) {
+      addBase({
+        "@font-face": {
+          fontFamily: "'Autograf'",
+          src: "url(/fonts/Autograf.woff) format('woff')",
+        },
+      });
+    }),
+  ],
+};
