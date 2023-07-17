@@ -33,6 +33,11 @@ module.exports = {
           fontFamily: "Autograf",
           src: "url(/fonts/Autograf.woff) format('woff')",
         },
+
+        h2: {
+          borderLeft: "8px solid #EAC541",
+          paddingLeft: "10px",
+        },
       });
     }),
   ],
