@@ -11,12 +11,12 @@
     "format": "prettier --write --plugin-search-dir=. ."
   },
   "devDependencies": {
-    "@astrojs/sitemap": "^1.4.0",
-    "@astrojs/svelte": "^3.1.0",
-    "@astrojs/tailwind": "^4.0.0",
-    "@astrojs/ts-plugin": "^1.0.10",
+    "@astrojs/sitemap": "^3.1.5",
+    "@astrojs/svelte": "^5.5.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/ts-plugin": "^1.8.0",
     "@tailwindcss/typography": "^0.5.9",
-    "astro": "^4.2.6",
+    "astro": "^4.10.2",
     "prettier": "^2.8.8",
     "prettier-plugin-astro": "^0.10.0",
     "svelte": "^4.0.5"
