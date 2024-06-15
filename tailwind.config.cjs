@@ -1,5 +1,6 @@
 const plugin = require("tailwindcss/plugin");
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./public/**/*.html",
@@ -10,6 +11,9 @@ module.exports = {
     fontFamily: {
       sans: ["Youth"],
       logo: ["Autograf"],
+    },
+    screens: {
+      sm: { max: "320px" },
     },
     extend: {
       colors: {

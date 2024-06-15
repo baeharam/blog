@@ -13,7 +13,7 @@
   >
   <a
     href={path}
-    class="text-4xl font-bold text-strong-blue mb-3 cursor-pointer"
+    class="text-3xl sm:text-2xl font-bold text-strong-blue mb-3 cursor-pointer"
   >
     {title}
   </a>
