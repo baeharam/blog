@@ -2,8 +2,21 @@
 import Layout from "../layouts/Layout.astro";
 import PostBlock from "../components/PostBlock.svelte";
 import dayjs from "dayjs";
+import type { MarkdownInstance } from "astro";
 
-const allPosts = await Astro.glob("./posts/*.md");
+interface Frontmatter {
+  title: string;
+  date: string;
+  description: string;
+  layout: string;
+}
+
+const allPosts = Object.values(
+  import.meta.glob<MarkdownInstance<Frontmatter>>("./posts/*.md", {
+    eager: true,
+  })
+);
+
 allPosts.sort((post1, post2) => {
   const date1 = dayjs(post1.frontmatter.date);
   const date2 = dayjs(post2.frontmatter.date);
