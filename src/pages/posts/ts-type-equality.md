@@ -64,7 +64,7 @@ type TypeEqualityTest = IsEqual<string, any>; // boolean (잘못됨)
 
 ```ts
 type ToArray<T> = T extends any ? T[] : never;
-type Result = ToArray<string | number>;  // string[] | number[] 
+type Result = ToArray<string | number>; // string[] | number[]
 ```
 
 이런 식으로 결과값도 유니온 타입으로 수렴하게 된다. 이게 바로 `any` 가 피연산자 타입으로 들어갔을 때 문제가 되는 포인트인데 `any` 는 어떤 타입도 될 수 있기 때문에 당연하게도 유니온 타입 또한 될 수 있다.
@@ -83,10 +83,10 @@ type TypeEqualityTest = IsEqual<string, string | number>;
 하지만, 피타입을 그대로 사용하지 않고 **제네릭 타입과 결합하여 활용**할 수 있다. 먼저 답부터 보자.
 
 ```ts
-type IsEqual<T, U>
-  = (<G>() => G extends T ? 1 : 2) extends
-    (<G>() => G extends U ? 1 : 2) 
-    ? true : false;
+type IsEqual<T, U> =
+  (<G>() => G extends T ? 1 : 2) extends <G>() => G extends U ? 1 : 2
+    ? true
+    : false;
 ```
 
 이 타입을 처음보면 "엥??" 이라는 생각이 들 수도 있다. 나도 이 해결법에 대해서 처음 보고 해설을 봤는데도 잘 이해가 안됐기 때문에 되게 생소했다.
@@ -138,7 +138,6 @@ const q = y<{ a: string }>(); // 1
 
 지금까지 타입스크립트에서 어떻게 두 타입의 동일성을 엄격하게 검증할 수 있는지 살펴보았다.
 이 문제는 [type-challenges](https://github.com/type-challenges/type-challenges) 저장소에서 타입스크립트 관련 문제를 풀다가 의문이 들어서 계속 찾아보았던 문제였다. 처음에 이해가 안되다가 계속해서 보고 또 보니 이해가 되었는데 임의의 타입 `G` 를 새로 생각한다는게 정말 신선한 접근이었다. 이런 접근방식은 추후에 다른 타입 문제에 놓여져 있을 때도 좀 활용해 볼 수 있을 것 같다.
-
 
 ## 참고
 

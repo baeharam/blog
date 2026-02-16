@@ -14,7 +14,7 @@ interface Frontmatter {
 const allPosts = Object.values(
   import.meta.glob<MarkdownInstance<Frontmatter>>("./posts/*.md", {
     eager: true,
-  })
+  }),
 );
 
 allPosts.sort((post1, post2) => {

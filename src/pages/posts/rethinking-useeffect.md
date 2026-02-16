@@ -264,7 +264,7 @@ function useOnlineStatus() {
   // ✅ 좋음: 내장 훅을 사용해서 외부 스토어 구독하기
   return useSyncExternalStore(
     subscribe, // 같은 함수를 넘기기만 하면 재구독 하지 않는다.
-    () => navigator.onLine // 클라이언트 쪽에서 값을 가져오는 방식
+    () => navigator.onLine, // 클라이언트 쪽에서 값을 가져오는 방식
   );
 }
 ```
