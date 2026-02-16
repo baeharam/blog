@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Youth", system-ui, -apple-system, sans-serif;
+  --font-logo: "Autograf", system-ui, -apple-system, sans-serif;
+  --color-strong-blue: #3259a4;
+  --shadow-link-underline: 0 1px 0 0 #3259a4;
+  --breakpoint-sm: 320px;
+}
+
+@font-face {
+  font-family: "Youth";
+  font-display: swap;
+  src:
+    url(//cdn.jsdelivr.net/korean-webfonts/1/orgs/othrs/kywa/Youth/Youth.woff2)
+      format("woff2"),
+    url(//cdn.jsdelivr.net/korean-webfonts/1/orgs/othrs/kywa/Youth/Youth.woff)
+      format("woff");
+}
+
+@font-face {
+  font-family: "Autograf";
+  font-display: swap;
+  src: url(/fonts/Autograf.woff) format("woff");
+}
+
+@layer base {
+  h2 {
+    border-left: 8px solid #eac541;
+    padding-left: 10px;
+  }
+}
