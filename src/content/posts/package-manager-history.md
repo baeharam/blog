@@ -2,7 +2,6 @@
 title: 자바스크립트 패키지 매니저의 여정
 date: 2021-03-21
 description: 자바스크립트 패키지 매니저가 어떻게 발전했는지 알아보자.
-layout: ../../layouts/PostLayout.astro
 ---
 
 ## npm

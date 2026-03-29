@@ -2,7 +2,6 @@
 title: 타입스크립트에서 2개의 타입이 동일함을 알아내기
 date: 2024-07-13
 description: 타입의 동일성을 어떻게 판별할 수 있을까?
-layout: ../../layouts/PostLayout.astro
 ---
 
 ## 조건부 타입

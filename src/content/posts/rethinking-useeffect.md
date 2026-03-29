@@ -2,7 +2,6 @@
 title: useEffect 다시 생각하기
 date: 2022-09-09
 description: useEffect 의 메커니즘을 재정립해보자.
-layout: ../../layouts/PostLayout.astro
 ---
 
 ## `useEffect` 되돌아보기
