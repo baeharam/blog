@@ -1,42 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import PostBlock from "../components/PostBlock.svelte";
-import dayjs from "dayjs";
-import type { MarkdownInstance } from "astro";
+import PostBlock from "../components/PostBlock.astro";
+import { getCollection } from "astro:content";
 
-interface Frontmatter {
-  title: string;
-  date: string;
-  description: string;
-  layout: string;
-}
-
-const allPosts = Object.values(
-  import.meta.glob<MarkdownInstance<Frontmatter>>("./posts/*.md", {
-    eager: true,
-  }),
-);
-
-allPosts.sort((post1, post2) => {
-  const date1 = dayjs(post1.frontmatter.date);
-  const date2 = dayjs(post2.frontmatter.date);
-  return date1.isBefore(date2) ? 1 : -1;
-});
+const allPosts = await getCollection("posts");
+allPosts.sort((post1, post2) => post2.data.date.getTime() - post1.data.date.getTime());
 ---
 
 <Layout>
   <ul class="flex flex-col space-y-16">
     {
-      allPosts.map(({ frontmatter, file }) => {
-        const path =
-          file.match(/\/posts\/.*\.md/)?.[0].replace(".md", "") ?? "";
+      allPosts.map(({ data, id }) => {
+        const path = `/posts/${id}`;
 
         return (
           <li>
             <PostBlock
-              title={frontmatter.title}
-              description={frontmatter.description}
-              date={frontmatter.date}
+              title={data.title}
+              description={data.description}
+              date={data.date}
               path={path}
             />
           </li>
